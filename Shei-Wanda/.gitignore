@@ -24,8 +24,8 @@
 .DS_Store
 Thumbs.db
 
-# Unity Burst package cache (exclut les fichiers de runtime)
-**/PackageCache/com.unity.burst@*/Runtime/
+# User-specific Unity settings
+[Uu]serSettings/
 
 # TextMesh Pro Asset Cache
 [Tt]extMeshPro/

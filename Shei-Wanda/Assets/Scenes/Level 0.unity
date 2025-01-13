@@ -15967,10 +15967,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1126805c0555814ebe4270063b83211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hinge: {fileID: 0}
+  hinge: {fileID: 1455278610}
   minAngle: 0
   maxAngle: 110
   rotationSpeed: 35
+--- !u!4 &1455278610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6186064399635108257, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
+  m_PrefabInstance: {fileID: 1455278605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!59 &1455278615
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -15995,12 +16000,12 @@ HingeJoint:
     targetVelocity: 0
     force: 0
     freeSpin: 0
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_ExtendedLimits: 0
   m_UseAcceleration: 0
   m_Limits:
     min: 0
-    max: 0
+    max: 110
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0

@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class DoorFollow : MonoBehaviour
+public class DoorFollowFixed : MonoBehaviour
 {
     public Transform handleTransform; // Transform de la poignée
-
     private HingeJoint hinge;
 
     void Start()
@@ -13,8 +12,17 @@ public class DoorFollow : MonoBehaviour
 
     void Update()
     {
-        // Synchronise la rotation de la porte avec la poignée si besoin
-        Vector3 handleRotation = handleTransform.localEulerAngles;
-        hinge.transform.localEulerAngles = new Vector3(0, 0, handleRotation.z);
+        // Vérifie si la poignée est attachée et ajuste l'angle du Hinge Joint
+        if (handleTransform != null && hinge != null)
+        {
+            // Calcule l'angle relatif basé sur la rotation de la poignée
+            Vector3 handleLocalRotation = handleTransform.localEulerAngles;
+
+            // Applique l'angle uniquement sur l'axe Z pour correspondre au Hinge Joint
+            float angle = Mathf.Clamp(handleLocalRotation.z, hinge.limits.min, hinge.limits.max);
+
+            // Applique la rotation en respectant les limites du Hinge Joint
+            hinge.transform.localEulerAngles = new Vector3(0, 0, angle);
+        }
     }
 }

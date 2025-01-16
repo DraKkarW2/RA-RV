@@ -1442,7 +1442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050188456414122779}
-  - component: {fileID: 5756273932071774187}
+  - component: {fileID: 4229339840427367716}
   m_Layer: 0
   m_Name: playerDefault
   m_TagString: Untagged
@@ -1468,7 +1468,7 @@ Transform:
   - {fileID: 4106469006513122742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5756273932071774187
+--- !u!114 &4229339840427367716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1480,7 +1480,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694f0632c5bb5414baf05920b3a0f631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xrRig: {fileID: 1700036271717461353}
+  xrOrigin: {fileID: 4904329711192556782}
+  moveAction: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  sprintAction: {fileID: 6849741063044718895, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  normalSpeed: 1.5
+  sprintSpeed: 3
 --- !u!1 &6883848232801209857
 GameObject:
   m_ObjectHideFlags: 0

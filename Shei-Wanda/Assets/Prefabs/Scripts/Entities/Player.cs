@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;       
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.XR.CoreUtils;           
 
 public class Player : Entity
 {
-    // ********************************************** Propriétés avec encapsulation ********************************************** //
+    // =============== Propriétés (Encapsulation) ===============
     private int _stamina;
     public int Stamina
     {
@@ -34,91 +35,144 @@ public class Player : Entity
     public bool Sprint { get; set; }
     public bool Exhausted { get; private set; }
     public int Money { get; set; }
-    public List<Quest> QuestInfo { get; private set; } = new List<Quest>();
-
-    // ********************************************** Sérialisation des contrôleurs ********************************************** //
-    [SerializeField] private XRController leftController;   // Référence au contrôleur gauche
-    [SerializeField] private XRController rightController;  // Référence au contrôleur droit
 
 
-    // ********************************************** Initialisation ********************************************** //
+    [Header("XR Origin & Action References")]
+    [SerializeField] private XROrigin xrOrigin;            
+    [SerializeField] private InputActionReference moveAction;   
+    [SerializeField] private InputActionReference sprintAction; 
+
+    [Header("Vitesse de Déplacement")]
+    [SerializeField] private float normalSpeed = 1.5f;
+    [SerializeField] private float sprintSpeed = 3.0f;
+
+ 
+    private ActionBasedController leftController;
+    private ActionBasedController rightController; 
+    private ContinuousMoveProviderBase moveProvider;
+
     private void Awake()
     {
-        if (leftController == null || rightController == null)
+      
+        if (xrOrigin == null)
         {
-            Debug.LogError("Left or Right controller is not assigned in the Inspector.");
+            xrOrigin = GetComponentInChildren<XROrigin>(true);
+        }
+
+        if (xrOrigin == null)
+        {
+            Debug.LogError("XROrigin introuvable.");
+        }
+        else
+        {
+            leftController = xrOrigin.transform.Find("Camera Offset/Left Controller")
+                ?.GetComponent<ActionBasedController>();
+            rightController = xrOrigin.transform.Find("Camera Offset/Right Controller")
+                ?.GetComponent<ActionBasedController>();
+
+          
+            moveProvider = xrOrigin.GetComponentInChildren<ContinuousMoveProviderBase>();
+        }
+
+  
+        if (moveAction == null)
+            Debug.LogError("moveAction n'est pas assigné dans l'Inspector.");
+        if (sprintAction == null)
+            Debug.LogError("sprintAction n'est pas assigné dans l'Inspector.");
+        if (moveProvider == null)
+            Debug.LogError("ContinuousMoveProvider introuvable sous le XR Origin.");
+    }
+
+    private void OnEnable()
+    {
+     
+        if (sprintAction != null)
+        {
+            sprintAction.action.Enable();
+            sprintAction.action.performed += StartSprint;
+            sprintAction.action.canceled += StopSprint;
+        }
+
+   
+        if (moveAction != null)
+        {
+            moveAction.action.Enable();
         }
     }
 
-    // ********************************************** Implémentation de la méthode Move() ********************************************** //
+    private void OnDisable()
+    {
+       
+        if (sprintAction != null)
+        {
+            sprintAction.action.performed -= StartSprint;
+            sprintAction.action.canceled -= StopSprint;
+            sprintAction.action.Disable();
+        }
+
+        if (moveAction != null)
+        {
+            moveAction.action.Disable();
+        }
+    }
+
+
+    private void StartSprint(InputAction.CallbackContext context)
+    {
+        if (!Exhausted && moveProvider != null)
+        {
+            Sprint = true;
+            moveProvider.moveSpeed = sprintSpeed;
+            Debug.Log("Sprint activé (Action-based).");
+        }
+    }
+
+    private void StopSprint(InputAction.CallbackContext context)
+    {
+        if (moveProvider != null)
+        {
+            Sprint = false;
+            moveProvider.moveSpeed = normalSpeed;
+            Debug.Log("Sprint désactivé (Action-based).");
+        }
+    }
+
+
     public override void Move()
     {
-        Debug.Log($"Move method called.");
+  
 
-        // Vérifier si les contrôleurs sont assignés
-        if (leftController != null)
+        if (moveAction != null && moveAction.action != null)
         {
-            Vector2 inputAxis = Vector2.zero;
+            Vector2 inputAxis = moveAction.action.ReadValue<Vector2>();
+            Debug.Log($"Action-based input Axis: {inputAxis}");
 
-            // Essayez de récupérer l'entrée du joystick gauche
-            if (leftController.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis))
-            {
-                if (inputAxis != Vector2.zero)
-                {
-                    // Calculer la vitesse en fonction de si le joueur court ou marche
-                    float moveSpeed = (Sprint && !Exhausted) ? Speed : Speed / 2;
-
-                    // Déplacement basé sur l'input du joystick
-                    Vector3 moveDirection = new Vector3(inputAxis.x, 0, inputAxis.y).normalized;
-                    transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-
-                    // Gérer la Stamina en fonction du sprint
-                    if (Sprint && !Exhausted)
-                    {
-                        Stamina -= 1;
-                        Debug.Log($"{Name} is sprinting.");
-                    }
-                    else
-                    {
-                        Debug.Log($"{Name} is walking.");
-                    }
-
-                    // Vérifier si le joueur est épuisé
-                    if (Stamina <= 0)
-                    {
-                        Exhausted = true;
-                        Debug.Log("Player is exhausted.");
-                    }
-                }
-            }
         }
     }
 
-    // Mise à jour de l'entité avec gestion spécifique du joueur
     public override void UpdateEntity()
     {
         base.UpdateEntity();
-        UpdatePlayer();
-    }
 
-    // Mise à jour spécifique pour le joueur
-    private void UpdatePlayer()
-    {
-        if (Exhausted)
+        if (Sprint && !Exhausted)
         {
-            Debug.Log("Player is exhausted.");
+            Stamina--;
+            Debug.Log($"Stamina: {Stamina}");
+
+            if (Stamina <= 0)
+            {
+                Exhausted = true;
+                Sprint = false;
+                if (moveProvider != null)
+                {
+                    moveProvider.moveSpeed = normalSpeed;
+                }
+                Debug.Log("Player est épuisé (Action-based).");
+            }
         }
-    }
-
-    // Interaction avec l'environnement
-    public void Interact()
-    {
-        Debug.Log($"{Name} is interacting with the environment.");
-    }
-
-    // Prendre un objet
-    public void TakeItem(Item item)
-    {
-        Debug.Log($"{Name} took {item.Name}");
+        else if (Stamina < 100)
+        {
+            Stamina++;
+        }
     }
 }

@@ -31,7 +31,7 @@ public abstract class Entity : MonoBehaviour
     public int Speed
     {
         get => _speed;
-        set => _speed = Mathf.Max(0, value); 
+        set => _speed = Mathf.Max(0, value);
     }
 
     private Vector3 _spawnPoint;
@@ -51,22 +51,34 @@ public abstract class Entity : MonoBehaviour
             Debug.Log($"{Name} changed its model.");
         }
     }
-    // ********************************************** fonctions de la classe ********************************************** //
-    public abstract void Move(); 
+
+    // ********************************************** Fonctions de la classe ********************************************** //
+
+    public abstract void Move();
+
     public virtual void Die()
     {
         Debug.Log($"{Name} is dead.");
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
+
     public virtual void UpdateEntity()
     {
         Debug.Log($"{Name} is updating.");
     }
+
+    protected virtual void Update()
+    {
+        UpdateEntity();
+        Move();
+    }
+
     public void Teleport(Vector3 position)
     {
         transform.position = position;
         Debug.Log($"{Name} teleported to {position}");
     }
+
     public void ChangeModel(Sprite model)
     {
         EntityModel = model;

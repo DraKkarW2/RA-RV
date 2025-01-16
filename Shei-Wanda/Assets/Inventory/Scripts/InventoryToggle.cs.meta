@@ -3,7 +3,9 @@ guid: 52939efda26ef634cbabd310443beb2c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - inventory: {instanceID: 0}
+  - toggleInventoryAction: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -6,21 +6,34 @@ public class InventoryToggle : MonoBehaviour
 {
     public GameObject inventory; // Le Canvas ou UI de l'inventaire
     private bool isInventoryVisible = false; // État d'affichage
-    public InputActionReference toggleInventoryAction;
+    public InputActionReference toggleInventoryAction; // Référence à l'action pour ouvrir/fermer l'inventaire
+    public Transform inventoryAnchor;
+    public Vector3 positionOffset = new Vector3(10f, 0, 20f);
 
-    void Update()
+    private void OnEnable()
     {
-        // Remplacez "ButtonPress" par l'événement correspondant dans XR Device Simulator
-        if (Input.GetKeyDown(KeyCode.I)) // Pour un test clavier avec la touche I
-        {
-            ToggleInventory();
-        }
+        // S'abonner à l'événement de l'action d'entrée
+        toggleInventoryAction.action.performed += OnToggleInventory;
+    }
 
+    private void OnDisable()
+    {
+        // Se désabonner de l'événement de l'action d'entrée
+        toggleInventoryAction.action.performed -= OnToggleInventory;
+    }
+
+    private void Update()
+    {
         if (isInventoryVisible)
         {
-            inventory.transform.position = transform.position + transform.up * 0.2f; // Ajustez l'offset
-            inventory.transform.rotation = transform.rotation;
+            inventory.transform.position = inventoryAnchor.position + positionOffset; 
+            inventory.transform.rotation = inventoryAnchor.rotation;
         }
+    }
+
+    private void OnToggleInventory(InputAction.CallbackContext context)
+    {
+        ToggleInventory();
     }
 
     public void ToggleInventory()
@@ -28,5 +41,4 @@ public class InventoryToggle : MonoBehaviour
         isInventoryVisible = !isInventoryVisible;
         inventory.SetActive(isInventoryVisible);
     }
-
 }

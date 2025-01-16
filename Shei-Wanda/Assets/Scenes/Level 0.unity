@@ -330,6 +330,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!4 &9312469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8753570749062361974, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
+  m_PrefabInstance: {fileID: 1271387646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9546140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,7 +982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 514387968592315048, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7296458978270909486, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1021,27 +1026,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 8397366511423424731, guid: db9587a179cc4a343968547756433c1c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5840,11 +5845,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e2459eabafe25a4ba7c5d494bc6700a, type: 3}
---- !u!4 &644328259 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1478248395775990482, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
-  m_PrefabInstance: {fileID: 1271387646}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &647407712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8339848813229404518, guid: 7e2459eabafe25a4ba7c5d494bc6700a, type: 3}
@@ -11094,8 +11094,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1478248395775990482, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 8753570749062361974, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
+      insertIndex: 1
       addedObject: {fileID: 1761748568}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
@@ -13850,6 +13850,11 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!4 &1466798309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8319662343052192457, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
+  m_PrefabInstance: {fileID: 1271387646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1473573500
 GameObject:
   m_ObjectHideFlags: 0
@@ -17725,13 +17730,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761748567}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 644328259}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 9312469}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1761748569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17745,7 +17750,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 1906041299}
-  toggleInventoryAction: {fileID: 0}
+  toggleInventoryAction: {fileID: -6581081052715890842, guid: 9075b76d4d0fb5f4fa7da27ab99bd447, type: 3}
+  inventoryAnchor: {fileID: 1466798309}
+  positionOffset: {x: -1, y: 0, z: -3}
 --- !u!4 &1763316362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7493326844755604524, guid: 23839e866b2804a4ba58c76d19acd986, type: 3}

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;       
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using Unity.XR.CoreUtils;           
+using Unity.XR.CoreUtils;
 
 public class Player : Entity
 {
@@ -38,22 +38,37 @@ public class Player : Entity
 
 
     [Header("XR Origin & Action References")]
-    [SerializeField] private XROrigin xrOrigin;            
-    [SerializeField] private InputActionReference moveAction;   
-    [SerializeField] private InputActionReference sprintAction; 
+    [SerializeField] private XROrigin xrOrigin;
+    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference sprintAction;
 
     [Header("Vitesse de Déplacement")]
     [SerializeField] private float normalSpeed = 7f;
     [SerializeField] private float sprintSpeed = 12f;
 
- 
     private ActionBasedController leftController;
-    private ActionBasedController rightController; 
+    private ActionBasedController rightController;
     private ContinuousMoveProviderBase moveProvider;
+
+    // ==================== Propriété redéfinie ====================
+    public override Vector3 Position
+    {
+        get => xrOrigin ? xrOrigin.transform.position : transform.position;
+        set
+        {
+            if (xrOrigin)
+            {
+                xrOrigin.transform.position = value;
+            }
+            else
+            {
+                transform.position = value;
+            }
+        }
+    }
 
     private void Awake()
     {
-      
         if (xrOrigin == null)
         {
             xrOrigin = GetComponentInChildren<XROrigin>(true);
@@ -70,11 +85,9 @@ public class Player : Entity
             rightController = xrOrigin.transform.Find("Camera Offset/Right Controller")
                 ?.GetComponent<ActionBasedController>();
 
-          
             moveProvider = xrOrigin.GetComponentInChildren<ContinuousMoveProviderBase>();
         }
 
-  
         if (moveAction == null)
             Debug.LogError("moveAction n'est pas assigné dans l'Inspector.");
         if (sprintAction == null)
@@ -85,7 +98,6 @@ public class Player : Entity
 
     private void OnEnable()
     {
-     
         if (sprintAction != null)
         {
             sprintAction.action.Enable();
@@ -93,7 +105,6 @@ public class Player : Entity
             sprintAction.action.canceled += StopSprint;
         }
 
-   
         if (moveAction != null)
         {
             moveAction.action.Enable();
@@ -102,7 +113,6 @@ public class Player : Entity
 
     private void OnDisable()
     {
-       
         if (sprintAction != null)
         {
             sprintAction.action.performed -= StartSprint;
@@ -115,7 +125,6 @@ public class Player : Entity
             moveAction.action.Disable();
         }
     }
-
 
     private void StartSprint(InputAction.CallbackContext context)
     {
@@ -137,16 +146,12 @@ public class Player : Entity
         }
     }
 
-
     public override void Move()
     {
-  
-
         if (moveAction != null && moveAction.action != null)
         {
             Vector2 inputAxis = moveAction.action.ReadValue<Vector2>();
             //Debug.Log($"Action-based input Axis: {inputAxis}");
-
         }
     }
 
@@ -174,5 +179,6 @@ public class Player : Entity
         {
             Stamina++;
         }
+
     }
 }

@@ -43,8 +43,8 @@ public class Player : Entity
     [SerializeField] private InputActionReference sprintAction; 
 
     [Header("Vitesse de Déplacement")]
-    [SerializeField] private float normalSpeed = 1.5f;
-    [SerializeField] private float sprintSpeed = 3.0f;
+    [SerializeField] private float normalSpeed = 7f;
+    [SerializeField] private float sprintSpeed = 12f;
 
  
     private ActionBasedController leftController;
@@ -145,7 +145,7 @@ public class Player : Entity
         if (moveAction != null && moveAction.action != null)
         {
             Vector2 inputAxis = moveAction.action.ReadValue<Vector2>();
-            Debug.Log($"Action-based input Axis: {inputAxis}");
+            //Debug.Log($"Action-based input Axis: {inputAxis}");
 
         }
     }

@@ -64,7 +64,7 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void UpdateEntity()
     {
-        Debug.Log($"{Name} is updating.");
+        
     }
 
     protected virtual void Update()

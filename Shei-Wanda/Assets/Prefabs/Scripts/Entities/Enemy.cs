@@ -9,14 +9,14 @@ public class Enemy : Entity
     public float SpawnTime;
 
     [Header("Movement Settings")]
-    public float rotationSpeed = 5f; // Vitesse de rotation vers la cible
+    public float rotationSpeed = 5f; 
 
     [SerializeField]
-    private Player player; // Référence au joueur, sérialisée pour être assignée dans l'inspecteur
+    private Player player; 
 
-    private NavMeshAgent agent; // Référence au NavMeshAgent
+    private NavMeshAgent agent; 
     [SerializeField]
-    private string entityName; // Champ affiché dans l'inspecteur
+    private string entityName; 
 
     public new string Name
     {
@@ -29,12 +29,16 @@ public class Enemy : Entity
                 Debug.LogWarning("Name cannot be null or empty.");
         }
     }
-
+ 
+    [Header("Audio Sources")]
+    public AudioSource movementAudioSource; 
+    public AudioSource chaseAudioSource;
+    [Header("Hit Audio")]
+    public AudioSource hitAudioSource;
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>(); // Initialise le NavMeshAgent
+        agent = GetComponent<NavMeshAgent>();
 
-        // Vérifie si le joueur est assigné
         if (player == null)
         {
             Debug.LogError($"{name} - Player reference is not assigned in the Inspector.");
@@ -45,25 +49,29 @@ public class Enemy : Entity
     {
         base.Update();
 
-        // Vérifie si le joueur est valide
         if (player == null)
         {
             Debug.LogWarning($"{name} - Player reference is null. Skipping Update.");
             return;
         }
-
-        // Détecte si le joueur est proche
-        Debug.Log(NearTo(player));
+        if (player.Health <= 0)
+        {
+            IsChasing = false;
+            Patrol();
+            StopAudio();
+            return;
+        }
         if (NearTo(player))
         {
+            if (!IsChasing) PlayChaseAudio();
             IsChasing = true;
         }
         else
         {
+            if (IsChasing) PlayMovementAudio();
             IsChasing = false;
         }
 
-        // Change de comportement en fonction de l'état
         if (IsChasing)
         {
             ChasePlayer();
@@ -78,10 +86,11 @@ public class Enemy : Entity
     {
         if (player == null) return;
 
-        // Déplace l'agent vers la position du joueur
         agent.SetDestination(player.Position);
-
-        // Tourne doucement vers le joueur
+        if (Vector3.Distance(transform.position, player.Position) <= agent.stoppingDistance)
+        {
+            AttackPlayer(player, 10); 
+        }
         Vector3 direction = (player.Position - transform.position).normalized;
         if (direction != Vector3.zero) // Évite les rotations inutiles
         {
@@ -92,46 +101,56 @@ public class Enemy : Entity
 
     public void Patrol()
     {
+
+
+        if (agent.isStopped)
+        {
+            agent.isStopped = false;
+        }
+
+        if (agent.hasPath && agent.remainingDistance > 0.5f && agent.velocity.magnitude < 0.1f)
+        {
+            agent.ResetPath();
+        }
+
         if (!agent.hasPath || agent.remainingDistance < 0.5f)
         {
-            // Génère une position aléatoire proche de l'ennemi
-            Vector3 randomDirection = Random.insideUnitSphere * 10; // Rayon de 10 unités pour la patrouille
+            Vector3 randomDirection = Random.insideUnitSphere * 10; 
             randomDirection += transform.position;
 
-            // Trouve une position valide sur le NavMesh
             if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 10, NavMesh.AllAreas))
             {
                 Vector3 patrolTarget = hit.position;
+
                 agent.SetDestination(patrolTarget);
-                Debug.Log($"{name} is patrolling to a new target: {patrolTarget}");
             }
         }
     }
 
+
     public bool NearTo(Player player)
     {
         float distance = Vector3.Distance(player.Position, Position);
-
         if (distance > VisionRange)
         {
-            Debug.Log($"{name} doesn't see the player (out of range).");
+          //Debug.Log($"{name} doesn't see the player (out of range).");
             return false;
         }
 
 
         Vector3 directionToPlayer = (player.Position - transform.position).normalized;
 
-        int layerMask = ~LayerMask.GetMask("enemy");
+        int layerMask = ~LayerMask.GetMask("enemy", "HUD");
 
- 
+
         Debug.DrawRay(transform.position + Vector3.up * 1.5f, directionToPlayer * VisionRange, Color.red, 0.1f);
 
 
         Ray ray = new Ray(transform.position + Vector3.up * 1.5f, directionToPlayer);
         if (Physics.Raycast(ray, out RaycastHit hit, VisionRange, layerMask, QueryTriggerInteraction.Ignore))
         {
-       
 
+            Debug.Log(hit.collider.CompareTag("Player"));
             // Si le Raycast touche le player
             if (hit.collider.CompareTag("Player"))
             {
@@ -146,21 +165,47 @@ public class Enemy : Entity
         Debug.Log($"{name} Raycast did not hit anything.");
         return false;
     }
-
+    private float attackCooldown = 1.5f;
+    private float lastAttackTime;
     public void AttackPlayer(Player player, int damage)
     {
-        if (IsChasing && Vector3.Distance(transform.position, player.Position) <= agent.stoppingDistance)
+        //Debug.Log($"{name} is attaking");
+        if (Time.time >= lastAttackTime + attackCooldown)
         {
-            player.Health -= damage;
-            Debug.Log($"{name} attacks the player for {damage} damage!");
+            player.TakeDamage(damage);
+            lastAttackTime = Time.time;
         }
-        else
+        if (hitAudioSource != null)
         {
-            Debug.Log($"{name} is not close enough to attack.");
+            hitAudioSource.Play();
         }
     }
 
     public override void Move()
     {
+    }
+    // Gère les sons
+    private void PlayMovementAudio()
+    {
+        if (movementAudioSource != null && !movementAudioSource.isPlaying)
+        {
+            chaseAudioSource.Stop();
+            movementAudioSource.Play();
+        }
+    }
+
+    private void PlayChaseAudio()
+    {
+        if (chaseAudioSource != null && !chaseAudioSource.isPlaying)
+        {
+            movementAudioSource.Stop();
+            chaseAudioSource.Play();
+        }
+    }
+
+    private void StopAudio()
+    {
+        if (movementAudioSource != null) movementAudioSource.Stop();
+        if (chaseAudioSource != null) chaseAudioSource.Stop();
     }
 }

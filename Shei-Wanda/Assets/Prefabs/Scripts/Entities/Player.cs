@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.XR.CoreUtils;
+using Unity.Netcode;
 
 public class Player : Entity
 {
@@ -25,13 +26,27 @@ public class Player : Entity
         set => _sanity = Mathf.Max(0, value);
     }
 
-    private int _health;
+    [SerializeField] private int _health = 100; 
     public int Health
     {
         get => _health;
         set => _health = Mathf.Clamp(value, 0, 100);
     }
 
+    [SerializeField]
+    private string entityName; 
+
+    public new string Name
+    {
+        get => entityName;
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                entityName = value;
+            else
+                Debug.LogWarning("Name cannot be null or empty.");
+        }
+    }
     public bool Sprint { get; set; }
     public bool Exhausted { get; private set; }
     public int Money { get; set; }
@@ -49,6 +64,9 @@ public class Player : Entity
     private ActionBasedController leftController;
     private ActionBasedController rightController;
     private ContinuousMoveProviderBase moveProvider;
+
+    [Header("Damage Effect")]
+    [SerializeField] private DamageEffect damageEffect;
 
     // ==================== Propriété redéfinie ====================
     public override Vector3 Position
@@ -153,6 +171,34 @@ public class Player : Entity
             Vector2 inputAxis = moveAction.action.ReadValue<Vector2>();
             //Debug.Log($"Action-based input Axis: {inputAxis}");
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        //Debug.Log($"Player took {damage} damage! Health: {Health}");
+
+        // Déclenche l'effet visuel de dégâts
+        if (damageEffect != null)
+        {
+            damageEffect.TriggerDamageEffect();
+        }
+        else
+        {
+            Debug.LogWarning("DamageEffect is not assigned in the Player script.");
+        }
+
+        // Vérifie si le joueur est mort
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+
+
+    public override void Die()
+    {
+        Debug.Log("Player is dead.");
     }
 
     public override void UpdateEntity()

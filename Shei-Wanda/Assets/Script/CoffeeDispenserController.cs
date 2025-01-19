@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.XR;
 
 public class CoffeeDispenserController : MonoBehaviour
 {
@@ -50,12 +51,31 @@ public class CoffeeDispenserController : MonoBehaviour
 
     void Update()
     {
-        // Detect interaction (Replace KeyCode.Space with appropriate input for VR)
+        // Detect interaction with keyboard
         if (Input.GetKeyDown(KeyCode.Space) && !isFilling)
         {
             Debug.Log("Interaction detected: Starting coffee process...");
             StartCoroutine(ServeCoffee());
         }
+
+        // Detect VR interaction (Meta Quest 3 - OpenXR, Button A)
+        if (IsVRButtonPressed() && !isFilling)
+        {
+            Debug.Log("VR Interaction detected: Starting coffee process...");
+            StartCoroutine(ServeCoffee());
+        }
+    }
+
+    bool IsVRButtonPressed()
+    {
+        InputDevice rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        bool primaryButtonPressed = false;
+
+        if (rightController.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonPressed) && primaryButtonPressed)
+        {
+            return true;
+        }
+        return false;
     }
 
     private IEnumerator ServeCoffee()

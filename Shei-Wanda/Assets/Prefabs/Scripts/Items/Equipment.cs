@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Equipment : Item
 {
@@ -8,7 +9,7 @@ public class Equipment : Item
     public bool IsCharged;
 
     // Méthodes spécifiques
-    public override void Use()
+    public override void Use(InputAction.CallbackContext context)
     {
         if (IsCharged)
         {

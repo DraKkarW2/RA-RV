@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 555317325372164490}
   - component: {fileID: 1567413255424014207}
   - component: {fileID: 3402680151027990000}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,8 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3683370322276361010}
   - component: {fileID: 1941231373160152304}
-  m_Layer: 0
-  m_Name: Coffee_cup
+  - component: {fileID: -7638356188971845786}
+  m_Layer: 6
+  m_Name: Coffee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,6 +145,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7638356188971845786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059473235913210248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: becb55758b590b447bcff1c385a60ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Type: 
+  NumberUsage: 0
 --- !u!1 &7711791733554056393
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +171,7 @@ GameObject:
   - component: {fileID: 940004454213850861}
   - component: {fileID: 312867568526977764}
   - component: {fileID: 2751516903723318605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

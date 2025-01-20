@@ -6,15 +6,16 @@ using Unity.XR.CoreUtils;
 
 public class LockerTeleport : MonoBehaviour
 {
+    [Header("References")]
     public Transform insideLockerPosition;  // Position à l'intérieur du casier
     public Transform outsideLockerPosition; // Position de sortie du casier
     public GameObject exitTextUI;           // UI pour afficher le message de sortie
     public CharacterController playerController; // Référence au CharacterController du joueur
     public GameObject playerCamera; // Référence à la caméra du joueur
     public XROrigin xrOrigin; // XR Origin rig for teleportation
+    public GameObject playerObject; // Le GameObject du joueur (assigner 'playerDefault')
 
     private bool isInside = false;          // Vérifie si le joueur est à l'intérieur du casier
-    private GameObject player;              // Référence au joueur
 
     void Start()
     {
@@ -25,15 +26,25 @@ public class LockerTeleport : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Exit Text UI is not assigned in the Inspector!");
+            Debug.LogError("[LockerTeleport] Exit Text UI is not assigned in the Inspector!");
+        }
+
+        // Vérifie si playerObject est assigné, sinon cherche automatiquement le joueur
+        if (playerObject == null)
+        {
+            playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject == null)
+            {
+                Debug.LogError("[LockerTeleport] Player not found! Ensure 'playerDefault' has the correct tag.");
+            }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isInside)
+        if (other.gameObject == playerObject && !isInside)
         {
-            player = other.gameObject;
+            Debug.Log("[LockerTeleport] Player detected: Teleporting...");
             TeleportToLocker();
         }
     }
@@ -66,19 +77,20 @@ public class LockerTeleport : MonoBehaviour
 
     void TeleportToLocker()
     {
-        if (player != null && xrOrigin != null)
+        if (playerObject != null && xrOrigin != null)
         {
-            // Utiliser XR Origin pour téléporter le joueur
+            // Déplace le XR Origin à la position du casier et tourne la caméra
             xrOrigin.MoveCameraToWorldLocation(insideLockerPosition.position);
-            player.transform.rotation = Quaternion.Euler(0, insideLockerPosition.eulerAngles.y + 180, 0);
+            playerObject.transform.rotation = Quaternion.Euler(0, insideLockerPosition.eulerAngles.y + 180, 0);
 
             // Désactiver le mouvement du joueur
             if (playerController != null)
             {
                 playerController.enabled = false;
             }
+
             isInside = true;
-            Debug.Log("Player entered the locker and rotated 180 degrees.");
+            Debug.Log("[LockerTeleport] Player entered the locker and rotated 180 degrees.");
 
             // Afficher l'instruction pour sortir
             if (exitTextUI != null)
@@ -86,13 +98,17 @@ public class LockerTeleport : MonoBehaviour
                 exitTextUI.SetActive(true);
             }
         }
+        else
+        {
+            Debug.LogError("[LockerTeleport] Teleportation failed. Check player and XR Origin references.");
+        }
     }
 
     void ExitLocker()
     {
-        if (player != null && xrOrigin != null)
+        if (playerObject != null && xrOrigin != null)
         {
-            // Utiliser XR Origin pour téléporter le joueur à l'extérieur
+            // Déplace le XR Origin à la position de sortie
             xrOrigin.MoveCameraToWorldLocation(outsideLockerPosition.position);
 
             // Réactiver le mouvement du joueur
@@ -101,7 +117,7 @@ public class LockerTeleport : MonoBehaviour
                 playerController.enabled = true;
             }
 
-            Debug.Log("Player exited the locker and kept the current rotation.");
+            Debug.Log("[LockerTeleport] Player exited the locker.");
             isInside = false;
 
             // Cacher l'instruction de sortie
@@ -109,6 +125,10 @@ public class LockerTeleport : MonoBehaviour
             {
                 exitTextUI.SetActive(false);
             }
+        }
+        else
+        {
+            Debug.LogError("[LockerTeleport] Exit failed. Check player and XR Origin references.");
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6197890763568034014
 Transform:
@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2188654531404331859, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6186064399635108257, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.99906904
@@ -112,6 +116,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1159497660602396393, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3823564220752447630}
+    - targetCorrespondingSourceObject: {fileID: 1159497660602396393, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6878974809968212020}
     - targetCorrespondingSourceObject: {fileID: 8719833299517057564, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8071764477908694440}
@@ -136,18 +143,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1126805c0555814ebe4270063b83211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hinge: {fileID: 5887933957272031232}
-  minAngle: 0
-  maxAngle: 110
-  rotationSpeed: 35
+--- !u!65 &6878974809968212020
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474973461532258120}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5826774, y: 1.5895498, z: 1.8036855}
+  m_Center: {x: 0.96235913, y: -0.2947749, z: -0.084114075}
 --- !u!4 &2248413459361461746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1971605038827205715, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
-  m_PrefabInstance: {fileID: 319602152107934113}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5887933957272031232 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6186064399635108257, guid: e596bf86514a8834b8e31e6481fe53de, type: 3}
   m_PrefabInstance: {fileID: 319602152107934113}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &9037711086401235901 stripped
@@ -343,7 +362,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.39655796, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 209.326, y: 5.2137146, z: 250.9246}
+  m_ConnectedAnchor: {x: 209.32599, y: 5.2137146, z: 250.9246}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:

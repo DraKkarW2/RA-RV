@@ -16,12 +16,13 @@ public class CoffeeDispenserController : MonoBehaviour
 
     private GameObject spawnedCup; // Reference to the spawned cup
     private bool isFilling = false;
+    private bool playerInRange = false; // Check if the player is near the dispenser
 
     void Start()
     {
         Debug.Log("CoffeeDispenserController started...");
 
-        // Debug check to ensure references are assigned correctly
+        // Debug checks for inspector references
         if (coffeeParticles == null)
             Debug.LogError("[Error] coffeeParticles is NOT assigned! Please assign it in the Inspector.");
         else
@@ -45,24 +46,27 @@ public class CoffeeDispenserController : MonoBehaviour
         // Set default text if assigned
         if (distributorText != null)
         {
-            distributorText.text = "Appuyez sur le distributeur pour obtenir du café.";
+            distributorText.text = "Appuyez sur A pour obtenir du café.";
         }
     }
 
     void Update()
     {
-        // Detect interaction with keyboard
-        if (Input.GetKeyDown(KeyCode.Space) && !isFilling)
+        if (playerInRange && !isFilling)
         {
-            Debug.Log("Interaction detected: Starting coffee process...");
-            StartCoroutine(ServeCoffee());
-        }
+            // Detect interaction with keyboard
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("Interaction detected: Starting coffee process...");
+                StartCoroutine(ServeCoffee());
+            }
 
-        // Detect VR interaction (Meta Quest 3 - OpenXR, Button A)
-        if (IsVRButtonPressed() && !isFilling)
-        {
-            Debug.Log("VR Interaction detected: Starting coffee process...");
-            StartCoroutine(ServeCoffee());
+            // Detect VR interaction (Meta Quest 3 - OpenXR, Button A)
+            if (IsVRButtonPressed())
+            {
+                Debug.Log("VR Interaction detected: Starting coffee process...");
+                StartCoroutine(ServeCoffee());
+            }
         }
     }
 
@@ -82,46 +86,57 @@ public class CoffeeDispenserController : MonoBehaviour
     {
         Debug.Log("Starting ServeCoffee process...");
 
-        // Check if all references are assigned before proceeding
         if (coffeeParticles == null || coffeeCupPrefab == null || cupSpawnPoint == null || distributorText == null)
         {
             Debug.LogError("Missing references in CoffeeDispenserController. Please assign all fields in the Inspector.");
-            yield break; // Stop the coroutine if references are missing
+            yield break;
         }
 
         isFilling = true;
-
-        // Update the text UI
         distributorText.text = "Préparation en cours...";
         Debug.Log("Text updated to: 'Préparation en cours...'");
 
-        // Spawn the coffee cup if not already present
         if (spawnedCup == null)
         {
             spawnedCup = Instantiate(coffeeCupPrefab, cupSpawnPoint.position, cupSpawnPoint.rotation);
             Debug.Log("Coffee cup spawned at position: " + cupSpawnPoint.position);
         }
 
-        // Start coffee particles
         coffeeParticles.Play();
         Debug.Log("Particles started.");
 
-        // Wait for the coffee to "fill"
         yield return new WaitForSeconds(fillTime);
 
-        // Stop the coffee particles
         coffeeParticles.Stop();
         Debug.Log("Particles stopped.");
 
-        // Update the text UI to inform that the coffee is ready
         distributorText.text = "Votre café est prêt !";
         Debug.Log("Text updated to: 'Votre café est prêt !'");
 
-        // Wait a few seconds before resetting the text
         yield return new WaitForSeconds(3f);
-        distributorText.text = "Appuyez sur le distributeur pour obtenir du café.";
+        distributorText.text = "Appuyez sur A pour obtenir du café.";
         Debug.Log("Text reset.");
 
         isFilling = false;
+    }
+
+    // Detection of the player entering the interaction zone
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            Debug.Log("Player entered the coffee dispenser area.");
+        }
+    }
+
+    // Detection of the player leaving the interaction zone
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            Debug.Log("Player left the coffee dispenser area.");
+        }
     }
 }

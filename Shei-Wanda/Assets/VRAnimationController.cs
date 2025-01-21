@@ -5,6 +5,7 @@ using UnityEngine;
 public class VRAnimationController : MonoBehaviour
 {
     public Animator animator;
+
     public Transform leftHand;
     public Transform rightHand;
 

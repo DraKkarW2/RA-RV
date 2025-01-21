@@ -792,9 +792,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ExitLocker",
+                    "name": "BoutonX",
                     "type": "Button",
-                    "id": "9ff174d1-a2c7-44af-9e87-9886c29a520e",
+                    "id": "b91ad2fe-ecf5-486e-994d-d6d923c84b03",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BoutonY",
+                    "type": "Button",
+                    "id": "38710748-5ff0-4932-b449-8e8e8cacf3c4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BoutonGrab",
+                    "type": "Button",
+                    "id": "76cfa1fa-9eb6-4d94-ab49-1206eaa5c97d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BoutonTrigger",
+                    "type": "Button",
+                    "id": "87853fe3-8ec4-47a3-8424-49020fc14f87",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -980,12 +1007,45 @@
                 },
                 {
                     "name": "",
-                    "id": "e2ac9581-0300-4222-8cdf-d7a639a15746",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "id": "323715cb-e11a-41a4-90cb-73e257f3a7ef",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Generic XR Controller",
-                    "action": "ExitLocker",
+                    "groups": "",
+                    "action": "BoutonX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cde781b-8db3-495c-860e-6d8d24d1d48c",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoutonY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59a2012b-c1e3-44da-892b-f346cbb25a45",
+                    "path": "<XRController>{LeftHand}/gripButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoutonGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07b08ee9-7f3f-4804-9369-a3c00bf38855",
+                    "path": "<XRController>{LeftHand}/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoutonTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1673,6 +1733,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BoutonClick",
+                    "type": "Button",
+                    "id": "6714fcbe-6454-4087-b7a0-4771b0d792dd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1882,6 +1951,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "BoutonTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "858a25f9-f756-4f2b-8169-875e7566fdfe",
+                    "path": "<XRController>{RightHand}/joystickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoutonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

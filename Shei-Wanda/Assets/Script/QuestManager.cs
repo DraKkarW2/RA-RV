@@ -40,7 +40,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void UpdateQuestText()
+    public void UpdateQuestText()
     {
         if (questText != null)
         {
@@ -48,7 +48,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void QuestCompleted()
+    public void QuestCompleted()
     {
         Debug.Log("Quête terminée ! Tous les PC ont été fermés.");
         questText.text = "Mission accomplie : 10/10 PC fermés";

@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;
 
 public class NPCDialogue : MonoBehaviour
 {
@@ -17,10 +17,13 @@ public class NPCDialogue : MonoBehaviour
     private bool playerInRange = false;
     private bool dialogueActive = false;
 
+    [SerializeField] private InputActionProperty closeButton;
+    [SerializeField] private KeyCode keyboardKey = KeyCode.Space;
+
     void Start()
     {
-        dialogueCanvas.SetActive(false);
-        interactionText.gameObject.SetActive(false);
+        dialogueCanvas.SetActive(true);
+        interactionText.gameObject.SetActive(true);
         questCanvas.SetActive(false);
     }
 
@@ -44,7 +47,11 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            interactionText.gameObject.SetActive(true);
+            if (!dialogueActive)
+            {
+                interactionText.gameObject.SetActive(true);
+            }
+            Debug.Log("Joueur entré dans la zone du PNJ !");
         }
     }
 
@@ -54,7 +61,11 @@ public class NPCDialogue : MonoBehaviour
         {
             playerInRange = false;
             interactionText.gameObject.SetActive(false);
-            EndDialogue();
+            if (dialogueActive)
+            {
+                EndDialogue();
+            }
+            Debug.Log("Joueur a quitté la zone du PNJ !");
         }
     }
 
@@ -90,13 +101,11 @@ public class NPCDialogue : MonoBehaviour
 
     void StartQuest()
     {
-        // Activer le canvas de la quête dans l'UI joueur
         questCanvas.SetActive(true);
 
-        // Initialiser la quête de fermeture des PC via le QuestManager existant
         if (QuestManager.instance != null)
         {
-            QuestManager.instance.ClosePC(); // Déclenche la mise à jour initiale du texte "PC fermés : 0/10"
+            QuestManager.instance.UpdateQuestText();  // Mise à jour du texte sans incrémenter
             Debug.Log("Quête de fermeture des PC démarrée !");
         }
         else
@@ -105,12 +114,12 @@ public class NPCDialogue : MonoBehaviour
         }
     }
 
-
     bool IsAButtonPressed()
     {
-        InputDevice rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        bool aButtonPressed = false;
-        rightController.TryGetFeatureValue(CommonUsages.primaryButton, out aButtonPressed);
-        return aButtonPressed;
+        if (closeButton.action != null && closeButton.action.WasPressedThisFrame())
+        {
+            return true;
+        }
+        return Input.GetKeyDown(keyboardKey);
     }
 }

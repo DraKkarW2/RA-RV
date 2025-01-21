@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.XR;
 
 public class CoffeeDispenserController : MonoBehaviour
 {
@@ -10,76 +10,71 @@ public class CoffeeDispenserController : MonoBehaviour
     public GameObject coffeeCupPrefab; // Prefab of the coffee cup
     public Transform cupSpawnPoint; // Spawn point for the cup
     public TextMeshProUGUI distributorText; // Text UI to display messages
+    public Collider interactionZone; // Zone de trigger autour de la machine
 
     [Header("Settings")]
     public float fillTime = 5f; // Duration to fill the cup
+    public InputActionReference serveCoffeeAction; // Input action for VR button (XRI RightHand Interaction/Button)
 
     private GameObject spawnedCup; // Reference to the spawned cup
     private bool isFilling = false;
-    private bool playerInRange = false; // Check if the player is near the dispenser
+    private bool playerInZone = false; // Vérifie si le joueur est dans la zone
 
     void Start()
     {
         Debug.Log("CoffeeDispenserController started...");
 
-        // Debug checks for inspector references
         if (coffeeParticles == null)
-            Debug.LogError("[Error] coffeeParticles is NOT assigned! Please assign it in the Inspector.");
+            Debug.LogError("[Error] coffeeParticles is NOT assigned!");
         else
             Debug.Log("[OK] coffeeParticles assigned successfully.");
 
         if (coffeeCupPrefab == null)
-            Debug.LogError("[Error] coffeeCupPrefab is NOT assigned! Please assign it in the Inspector.");
+            Debug.LogError("[Error] coffeeCupPrefab is NOT assigned!");
         else
             Debug.Log("[OK] coffeeCupPrefab assigned successfully.");
 
         if (cupSpawnPoint == null)
-            Debug.LogError("[Error] cupSpawnPoint is NOT assigned! Please assign it in the Inspector.");
+            Debug.LogError("[Error] cupSpawnPoint is NOT assigned!");
         else
             Debug.Log("[OK] cupSpawnPoint assigned successfully.");
 
         if (distributorText == null)
-            Debug.LogError("[Error] distributorText is NOT assigned! Please assign it in the Inspector.");
+            Debug.LogError("[Error] distributorText is NOT assigned!");
         else
             Debug.Log("[OK] distributorText assigned successfully.");
 
-        // Set default text if assigned
+        if (interactionZone == null)
+            Debug.LogError("[Error] interactionZone is NOT assigned!");
+        else
+            Debug.Log("[OK] interactionZone assigned successfully.");
+
         if (distributorText != null)
         {
-            distributorText.text = "Appuyez sur A pour obtenir du café.";
+            distributorText.text = "Appuyez sur le distributeur pour obtenir du café.";
         }
+
+        // Attache l'action d'entrée pour détecter la pression du bouton VR
+        serveCoffeeAction.action.performed += _ => TryServeCoffee();
     }
 
     void Update()
     {
-        if (playerInRange && !isFilling)
+        // Vérification du clavier pour les tests, seulement si le joueur est dans la zone
+        if (playerInZone && Keyboard.current.spaceKey.wasPressedThisFrame && !isFilling)
         {
-            // Detect interaction with keyboard
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Interaction detected: Starting coffee process...");
-                StartCoroutine(ServeCoffee());
-            }
-
-            // Detect VR interaction (Meta Quest 3 - OpenXR, Button A)
-            if (IsVRButtonPressed())
-            {
-                Debug.Log("VR Interaction detected: Starting coffee process...");
-                StartCoroutine(ServeCoffee());
-            }
+            Debug.Log("Interaction detected via keyboard: Starting coffee process...");
+            StartCoroutine(ServeCoffee());
         }
     }
 
-    bool IsVRButtonPressed()
+    private void TryServeCoffee()
     {
-        InputDevice rightController = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-        bool primaryButtonPressed = false;
-
-        if (rightController.TryGetFeatureValue(CommonUsages.primaryButton, out primaryButtonPressed) && primaryButtonPressed)
+        if (playerInZone && !isFilling)
         {
-            return true;
+            Debug.Log("Interaction detected via VR button: Starting coffee process...");
+            StartCoroutine(ServeCoffee());
         }
-        return false;
     }
 
     private IEnumerator ServeCoffee()
@@ -93,6 +88,7 @@ public class CoffeeDispenserController : MonoBehaviour
         }
 
         isFilling = true;
+
         distributorText.text = "Préparation en cours...";
         Debug.Log("Text updated to: 'Préparation en cours...'");
 
@@ -114,29 +110,33 @@ public class CoffeeDispenserController : MonoBehaviour
         Debug.Log("Text updated to: 'Votre café est prêt !'");
 
         yield return new WaitForSeconds(3f);
-        distributorText.text = "Appuyez sur A pour obtenir du café.";
+        distributorText.text = "Appuyez sur le distributeur pour obtenir du café.";
         Debug.Log("Text reset.");
 
         isFilling = false;
     }
 
-    // Detection of the player entering the interaction zone
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
-            Debug.Log("Player entered the coffee dispenser area.");
+            playerInZone = true;
+            Debug.Log("Player entered the coffee zone.");
         }
     }
 
-    // Detection of the player leaving the interaction zone
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
-            Debug.Log("Player left the coffee dispenser area.");
+            playerInZone = false;
+            Debug.Log("Player left the coffee zone.");
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Nettoyage de l'abonnement à l'événement
+        serveCoffeeAction.action.performed -= _ => TryServeCoffee();
     }
 }

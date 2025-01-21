@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: animations.Array.data[16]
       value: 
       objectReference: {fileID: 7400000, guid: 8564dc45968774e70ad835503fda627e, type: 2}
+    - target: {fileID: 11400000, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 3}
+      propertyPath: selectAction.m_Action.m_Name
+      value: Select
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -40,7 +40,10 @@ public class Equipment : Item
         switch (ItemType.ToLower())
         {
             case "flashlight":
-                Debug.Log("flashlight ACTIVATED");
+                if (player != null)
+                {
+                    Debug.Log("flashlight ACTIVATED");
+                }
                 break;
             default:
                 Debug.Log("Type d'�quipement inconnu lors de l'activation.");
@@ -53,7 +56,10 @@ public class Equipment : Item
         switch (ItemType.ToLower())
         {
             case "flashlight":
-                Debug.Log("flashlight DESACTIVATED");
+                if (player != null)
+                {
+                    Debug.Log("flashlight DESACTIVATED");
+                }
                 break;
             default:
                 Debug.Log("Type d'�quipement inconnu lors de la d�sactivation.");

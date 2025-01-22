@@ -54,24 +54,36 @@ public class Consumable : Item
         switch (itemType.ToLower())
         {
             case "cofee":
-                player.Sanity += 25;
-                StartCoroutine(MaxStamina(20f));
-                Debug.Log("COFFEE USED");
+                if (player != null)
+                {
+                    player.Sanity += 25;
+                    StartCoroutine(MaxStamina(20f));
+                    Debug.Log("COFFEE USED");
+                }
                 break;
 
             case "sandwich":
-                player.Health += 50;
-                Debug.Log("SANDWICH USED");
+                if (player != null)
+                {
+                    player.Health += 50;
+                    Debug.Log("SANDWICH USED");
+                }
                 break;
 
             case "battery":
-                player.Battery += 100;
-                Debug.Log("BATTERY USED");
+                if (player != null)
+                {
+                    player.Battery += 100;
+                    Debug.Log("BATTERY USED");
+                }
                 break;
 
             case "key":
-                UseKey();
-                Debug.Log("KEY USED");
+                if (player != null)
+                {
+                    UseKey();
+                    Debug.Log("KEY USED");
+                }
                 break;
 
             default:

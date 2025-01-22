@@ -118,14 +118,31 @@ public abstract class Item : MonoBehaviour
 
     private void AddToInventory(InputAction.CallbackContext context)
     {
-        if (isCurrentlyGrabbed && playerInventory != null)
+        if (isCurrentlyGrabbed)
         {
-            bool added = playerInventory.AddItem(this);
-            if (added)
+            // Trouver l'inventaire du joueur qui manipule l'objet
+            var interactor = grabInteractable.GetOldestInteractorSelecting();
+            if (interactor != null && interactor.transform.root.CompareTag("Player"))
             {
-                isCurrentlyGrabbed = false;
-                grabInteractable.enabled = false; // Empêche de grab l'item déjà dans l'inventaire
-
+                GameObject playerObject = interactor.transform.root.gameObject;
+                Inventory inventory = playerObject.GetComponentInChildren<Inventory>();
+                if (inventory != null)
+                {
+                    bool added = inventory.AddItem(this);
+                    if (added)
+                    {
+                        isCurrentlyGrabbed = false;
+                        grabInteractable.enabled = false; // Empêche de grab l'item déjà dans l'inventaire
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Aucun inventaire trouvé sur le joueur.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Aucun joueur valide n'interagit avec l'objet.");
             }
         }
     }

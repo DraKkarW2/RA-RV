@@ -66,7 +66,13 @@ public class Player : Entity
 
     private void Awake()
     {
-      
+        // Assurer que l'inventaire est bien trouvé pour ce joueur
+        Inventory inventory = GetComponentInChildren<Inventory>();
+        if (inventory == null)
+        {
+            Debug.LogWarning("Pas d'inventaire trouvé pour ce joueur !");
+        }
+
         if (xrOrigin == null)
         {
             xrOrigin = GetComponentInChildren<XROrigin>(true);
@@ -78,12 +84,17 @@ public class Player : Entity
         }
         else
         {
+            // Initialiser les contrôleurs (main gauche et droite) pour ce joueur
             leftController = xrOrigin.transform.Find("Camera Offset/Left Controller")
                 ?.GetComponent<ActionBasedController>();
             rightController = xrOrigin.transform.Find("Camera Offset/Right Controller")
                 ?.GetComponent<ActionBasedController>();
 
-          
+            if (leftController == null || rightController == null)
+            {
+                Debug.LogWarning("Contrôleurs gauche ou droit introuvables pour ce joueur.");
+            }
+
             moveProvider = xrOrigin.GetComponentInChildren<ContinuousMoveProviderBase>();
         }
 

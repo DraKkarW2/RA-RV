@@ -3,32 +3,78 @@ using UnityEngine.InputSystem;
 
 public class Equipment : Item
 {
-    // Attributs spécifiques aux équipements
-    public Vector3 Range; // Portée de l'équipement
-    public int Battery;
-    public bool IsCharged;
+    [SerializeField]
+    private bool isActiveLeft = false;
+    private bool isActiveRight = false;
 
-    // Méthodes spécifiques
-    public override void Use(InputAction.CallbackContext context)
+    // Mï¿½thodes spï¿½cifiques
+    public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
-        if (IsCharged)
+        if (isLeftHand)
         {
-            Debug.Log($"{Name} is being used.");
+            // Inverse l'ï¿½tat d'activation pour la main gauche
+            isActiveLeft = !isActiveLeft;
+            if (isActiveLeft)
+                Activate(isLeftHand);
+            else
+                Deactivate(isLeftHand);
         }
         else
         {
-            Debug.Log($"{Name} is not charged and cannot be used.");
+            // Inverse l'ï¿½tat d'activation pour la main droite
+            isActiveRight = !isActiveRight;
+            if (isActiveRight)
+                Activate(isLeftHand);
+            else
+                Deactivate(isLeftHand);
         }
     }
 
-    public void ChargeBattery(int amount)
+    // Mï¿½thode appelï¿½e lors de l'activation de l'ï¿½quipement
+    private void Activate(bool isLeftHand)
     {
-        Battery += amount;
-        if (Battery > 0)
+        switch (ItemType.ToLower())
         {
-            IsCharged = true;
+            case "flashlight":
+                Debug.Log("flashlight ACTIVATED");
+                break;
+            default:
+                Debug.Log("Type d'ï¿½quipement inconnu lors de l'activation.");
+                break;
         }
+    }
 
-        Debug.Log($"{Name} charged. Battery: {Battery}");
+    private void Deactivate(bool isLeftHand)
+    {
+        switch (ItemType.ToLower())
+        {
+            case "flashlight":
+                Debug.Log("flashlight DESACTIVATED");
+                break;
+            default:
+                Debug.Log("Type d'ï¿½quipement inconnu lors de la dï¿½sactivation.");
+                break;
+        }
+    }
+
+    // Fonction pour rï¿½initialiser l'ï¿½tat 'isActive' quand il n'y a pas d'objet grab
+    public void ResetActiveState(bool isLeftHand)
+    {
+        if (isLeftHand)
+        {
+            if (isActiveLeft)
+            {
+                isActiveLeft = false;
+                Debug.Log($"{Name} (left hand) state reset to inactive.");
+            }
+        }
+        else
+        {
+            if (isActiveRight)
+            {
+                isActiveRight = false;
+                Debug.Log($"{Name} (right hand) state reset to inactive.");
+            }
+        }
     }
 }

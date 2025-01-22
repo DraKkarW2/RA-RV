@@ -785,6 +785,7 @@
                 {
                     "name": "Interact",
                     "type": "Button",
+<<<<<<< Updated upstream
                     "id": "9e173a07-dccc-4101-aecb-07483219fd59",
                     "expectedControlType": "",
                     "processors": "",
@@ -822,6 +823,9 @@
                     "name": "BoutonTrigger",
                     "type": "Button",
                     "id": "87853fe3-8ec4-47a3-8424-49020fc14f87",
+=======
+                    "id": "0db4cd44-eeeb-4cff-92d5-d06a4ab0fa87",
+>>>>>>> Stashed changes
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -996,7 +1000,11 @@
                 },
                 {
                     "name": "",
+<<<<<<< Updated upstream
                     "id": "49ecf095-86e7-4352-8414-fc8bece92cb9",
+=======
+                    "id": "cecf50e8-b0b2-4ccb-9662-bb3ce765c9c9",
+>>>>>>> Stashed changes
                     "path": "<XRController>{LeftHand}/triggerButton",
                     "interactions": "",
                     "processors": "",
@@ -1004,6 +1012,7 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+<<<<<<< Updated upstream
                 },
                 {
                     "name": "",
@@ -1048,6 +1057,8 @@
                     "action": "BoutonTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
+=======
+>>>>>>> Stashed changes
                 }
             ]
         },
@@ -1113,7 +1124,7 @@
                     "name": "Grab Move",
                     "type": "Button",
                     "id": "c5a6d766-d487-42ae-b293-da4749469e18",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

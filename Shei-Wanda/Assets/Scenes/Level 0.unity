@@ -1420,7 +1420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8580928342044649712, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
       propertyPath: m_Name
-      value: unitychan Variant
+      value: Caroline
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

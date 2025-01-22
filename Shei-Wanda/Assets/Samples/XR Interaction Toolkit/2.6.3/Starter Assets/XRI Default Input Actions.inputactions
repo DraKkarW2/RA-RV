@@ -349,7 +349,7 @@
                     "name": "Is Tracked",
                     "type": "Button",
                     "id": "82eb6741-beef-48d3-83ab-a957dc1caa1e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -783,19 +783,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-<<<<<<< Updated upstream
-                    "id": "9e173a07-dccc-4101-aecb-07483219fd59",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "BoutonX",
                     "type": "Button",
-                    "id": "b91ad2fe-ecf5-486e-994d-d6d923c84b03",
+                    "id": "99b06a53-ef4e-4f8b-8cf0-e36cf29323da",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -804,7 +794,7 @@
                 {
                     "name": "BoutonY",
                     "type": "Button",
-                    "id": "38710748-5ff0-4932-b449-8e8e8cacf3c4",
+                    "id": "6089a928-e2df-442e-9c8e-31c267f0c739",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -813,7 +803,7 @@
                 {
                     "name": "BoutonGrab",
                     "type": "Button",
-                    "id": "76cfa1fa-9eb6-4d94-ab49-1206eaa5c97d",
+                    "id": "35d755f5-b853-4edf-90ec-5a64169892b1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -822,10 +812,7 @@
                 {
                     "name": "BoutonTrigger",
                     "type": "Button",
-                    "id": "87853fe3-8ec4-47a3-8424-49020fc14f87",
-=======
-                    "id": "0db4cd44-eeeb-4cff-92d5-d06a4ab0fa87",
->>>>>>> Stashed changes
+                    "id": "5ef8123d-3bb2-4114-8e77-2c0b161ebffd",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1000,23 +987,7 @@
                 },
                 {
                     "name": "",
-<<<<<<< Updated upstream
-                    "id": "49ecf095-86e7-4352-8414-fc8bece92cb9",
-=======
-                    "id": "cecf50e8-b0b2-4ccb-9662-bb3ce765c9c9",
->>>>>>> Stashed changes
-                    "path": "<XRController>{LeftHand}/triggerButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Generic XR Controller",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-<<<<<<< Updated upstream
-                },
-                {
-                    "name": "",
-                    "id": "323715cb-e11a-41a4-90cb-73e257f3a7ef",
+                    "id": "f99ff42d-5dda-4c21-8596-1e3d8ef28e3a",
                     "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
@@ -1027,7 +998,7 @@
                 },
                 {
                     "name": "",
-                    "id": "3cde781b-8db3-495c-860e-6d8d24d1d48c",
+                    "id": "113e68d0-948f-4705-9534-8aeb715aa7d4",
                     "path": "<XRController>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
@@ -1038,7 +1009,7 @@
                 },
                 {
                     "name": "",
-                    "id": "59a2012b-c1e3-44da-892b-f346cbb25a45",
+                    "id": "797f2cce-e8a3-40c3-a697-9772117cbce9",
                     "path": "<XRController>{LeftHand}/gripButton",
                     "interactions": "",
                     "processors": "",
@@ -1049,7 +1020,7 @@
                 },
                 {
                     "name": "",
-                    "id": "07b08ee9-7f3f-4804-9369-a3c00bf38855",
+                    "id": "2c47bfb6-20b9-4efc-bc87-263e9935dafe",
                     "path": "<XRController>{LeftHand}/triggerButton",
                     "interactions": "",
                     "processors": "",
@@ -1057,8 +1028,6 @@
                     "action": "BoutonTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
-=======
->>>>>>> Stashed changes
                 }
             ]
         },
@@ -1124,7 +1093,7 @@
                     "name": "Grab Move",
                     "type": "Button",
                     "id": "c5a6d766-d487-42ae-b293-da4749469e18",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1744,15 +1713,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "BoutonClick",
-                    "type": "Button",
-                    "id": "6714fcbe-6454-4087-b7a0-4771b0d792dd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1962,17 +1922,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "BoutonTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "858a25f9-f756-4f2b-8169-875e7566fdfe",
-                    "path": "<XRController>{RightHand}/joystickClicked",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BoutonClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
 
 public class HorrorFlickeringLight : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class HorrorFlickeringLight : MonoBehaviour
 
     private float targetIntensity;
     private float timer;
+    private static List<HorrorFlickeringLight> allLights = new List<HorrorFlickeringLight>();
+    private static bool flickerStarted = false;
+    private static bool lightsOffStarted = false;
+    private bool isFlickering = false; // Ajout pour suivre l'état de clignotement de chaque lampe
+
+    public TextMeshProUGUI timerText;
+    private float elapsedTime = 0f;
+    private bool isRunning = true;
 
     void Start()
     {
@@ -20,25 +30,98 @@ public class HorrorFlickeringLight : MonoBehaviour
             lightSource = GetComponent<Light>();
         }
         targetIntensity = lightSource.intensity;
+        allLights.Add(this);
+        StartTimer();
     }
 
     void Update()
     {
-        // Gérer le clignotement
-        timer += Time.deltaTime;
-        if (timer >= flickerSpeed)
+        if (isRunning)
         {
-            targetIntensity = Random.Range(minIntensity, maxIntensity);
-            timer = 0;
-
-            // Jouer un son de clignotement si activé
-            if (enableFlickerSound && audioSource != null && flickerSound != null)
-            {
-                audioSource.PlayOneShot(flickerSound);
-            }
+            elapsedTime += Time.deltaTime;
+            UpdateTimerDisplay();
         }
 
-        // Doucement passer à la nouvelle intensité
-        lightSource.intensity = Mathf.Lerp(lightSource.intensity, targetIntensity, Time.deltaTime * 10);
+        if (elapsedTime >= 300f && !flickerStarted) // 5 minutes
+        {
+            StartFlickering();
+            flickerStarted = true;
+        }
+
+        if (elapsedTime >= 600f && !lightsOffStarted) // 10 minutes
+        {
+            TurnOffSomeLights();
+            lightsOffStarted = true;
+        }
+
+        if (isFlickering)
+        {
+            timer += Time.deltaTime;
+            if (timer >= flickerSpeed)
+            {
+                targetIntensity = Random.Range(minIntensity, maxIntensity);
+                timer = 0;
+                if (enableFlickerSound && audioSource != null && flickerSound != null)
+                {
+                    audioSource.PlayOneShot(flickerSound);
+                }
+            }
+            lightSource.intensity = Mathf.Lerp(lightSource.intensity, targetIntensity, Time.deltaTime * 10);
+        }
+    }
+
+    void UpdateTimerDisplay()
+    {
+        int minutes = Mathf.FloorToInt(elapsedTime / 60);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60);
+        timerText.text = $"Time : {minutes:00}:{seconds:00}";
+    }
+
+    public void StartTimer()
+    {
+        isRunning = true;
+    }
+
+    public void StopTimer()
+    {
+        isRunning = false;
+    }
+
+    public void ResetTimer()
+    {
+        elapsedTime = 0f;
+        UpdateTimerDisplay();
+    }
+
+    void StartFlickering()
+    {
+        int numberOfLightsToFlicker = Mathf.CeilToInt(allLights.Count * 0.35f);
+        HashSet<int> selectedIndexes = new HashSet<int>();
+
+        while (selectedIndexes.Count < numberOfLightsToFlicker)
+        {
+            int index = Random.Range(0, allLights.Count);
+            if (!selectedIndexes.Contains(index))
+            {
+                allLights[index].isFlickering = true;
+                selectedIndexes.Add(index);
+            }
+        }
+    }
+
+    void TurnOffSomeLights()
+    {
+        int numberOfLightsToTurnOff = Mathf.CeilToInt(allLights.Count * 0.2f);
+        HashSet<int> selectedIndexes = new HashSet<int>();
+
+        while (selectedIndexes.Count < numberOfLightsToTurnOff)
+        {
+            int index = Random.Range(0, allLights.Count);
+            if (!selectedIndexes.Contains(index))
+            {
+                allLights[index].lightSource.enabled = false;
+                selectedIndexes.Add(index);
+            }
+        }
     }
 }

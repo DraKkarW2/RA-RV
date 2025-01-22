@@ -105,6 +105,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.086
       objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4624718
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Size.y
+      value: 0.99999964
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Size.z
+      value: 2.112938
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Center.x
+      value: 0.23123182
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Center.y
+      value: -0.000000008908845
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_Center.z
+      value: -0.55653167
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531579240999528120, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9040716556065295875, guid: a393a39cc1573e649973bf692092eec1, type: 3}
       propertyPath: m_Name
       value: DoorR
@@ -112,8 +140,49 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2197665264754995942, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2646120499394336362}
   m_SourcePrefab: {fileID: 100100000, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+--- !u!1 &5548139717773002543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2197665264754995942, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+  m_PrefabInstance: {fileID: 5945137744655627721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2646120499394336362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548139717773002543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e9d5727173b8640a4d63c7fdf24051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Close Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 973846a6-7808-4731-9fcf-9162e9fa3048
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 5839159071551158867, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  keyboardKey: 32
+  door: {fileID: 6514326468093531408}
+  openAngle: 110
+  openSpeed: 1.5
+--- !u!4 &6514326468093531408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 641435495294099673, guid: a393a39cc1573e649973bf692092eec1, type: 3}
+  m_PrefabInstance: {fileID: 5945137744655627721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6522877024582001557 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 577786074675500636, guid: a393a39cc1573e649973bf692092eec1, type: 3}

@@ -173,7 +173,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 5821920274910857083, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 5839159071551158867, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   keyboardKey: 32
   closedAngle: 110
   rotationSpeed: 1

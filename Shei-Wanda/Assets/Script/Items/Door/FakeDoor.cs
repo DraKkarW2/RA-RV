@@ -1,35 +1,62 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
 
 public class FakeDoor : MonoBehaviour
 {
+    [Header("Screamer Settings")]
     public AudioClip screamerSound;  // Le son du screamer
     private AudioSource audioSource;
     private bool hasActivated = false;
+    private bool playerInRange = false;  // Vérifie si le joueur est dans la zone
 
-    public XRGrabInteractable doorHandle; // Référence à la poignée de porte
+    [Header("Interaction Settings")]
+    [SerializeField] private InputActionProperty interactButton; // Bouton du joystick VR
+    [SerializeField] private KeyCode keyboardKey = KeyCode.Space; // Touche clavier pour interaction
+    [SerializeField] private Collider interactionZone; // Zone d'interaction
+
+    [SerializeField] private float scareDuration = 3.0f; // Durée du jumpscare en secondes
+    [SerializeField] private float interactionCooldown = 2.0f; // Délai entre interactions
+
+    private float lastInteractionTime = 0f; // Temps de la dernière interaction
 
     void Start()
     {
-        // Vérifie et ajoute un AudioSource si non assigné
+        // Ajout automatique d'AudioSource si nécessaire
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1.0f; // Son 3D
+        audioSource.volume = 0.8f; // Volume modifiable
 
-        if (doorHandle != null)
+        if (screamerSound == null)
         {
-            doorHandle.selectEntered.AddListener(OnHandleGrabbed);
-        }
-        else
-        {
-            Debug.LogError("Door handle is not assigned in the Inspector!");
+            Debug.LogError("Aucun son assigné à la porte !");
         }
     }
 
-    void OnHandleGrabbed(SelectEnterEventArgs args)
+    void Update()
     {
-        if (!hasActivated)
+        if (playerInRange && IsInteractionPressed() && !hasActivated && Time.time - lastInteractionTime > interactionCooldown)
         {
             TriggerScreamer();
+            lastInteractionTime = Time.time;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+            Debug.Log("Le joueur est proche de la poignée de porte. Appuyez sur Espace ou Bouton A pour interagir.");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+            Debug.Log("Le joueur s'est éloigné de la poignée de porte.");
         }
     }
 
@@ -41,18 +68,18 @@ public class FakeDoor : MonoBehaviour
         {
             audioSource.PlayOneShot(screamerSound);
             Debug.Log("Screamer déclenché !");
-        }
-        else
-        {
-            Debug.LogError("Aucun son assigné à la porte !");
+            Invoke(nameof(StopScreamer), scareDuration); // Arrêter le son après la durée définie
         }
     }
 
-    void OnDestroy()
+    void StopScreamer()
     {
-        if (doorHandle != null)
-        {
-            doorHandle.selectEntered.RemoveListener(OnHandleGrabbed);
-        }
+        audioSource.Stop();
+        Debug.Log("Screamer arrêté après " + scareDuration + " secondes.");
+    }
+
+    bool IsInteractionPressed()
+    {
+        return (interactButton.action != null && interactButton.action.WasPressedThisFrame()) || Input.GetKeyDown(keyboardKey);
     }
 }

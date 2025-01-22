@@ -17,13 +17,17 @@ public class NPCDialogue : MonoBehaviour
     private bool playerInRange = false;
     private bool dialogueActive = false;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource dialogueAudioSource; // Audio source pour le son des dialogues
+    [SerializeField] private AudioClip dialogueSound; // Son à jouer pour chaque dialogue
+
     [SerializeField] private InputActionProperty closeButton;
     [SerializeField] private KeyCode keyboardKey = KeyCode.Space;
 
     void Start()
     {
-        dialogueCanvas.SetActive(true);
-        interactionText.gameObject.SetActive(true);
+        dialogueCanvas.SetActive(false);
+        interactionText.gameObject.SetActive(false);
         questCanvas.SetActive(false);
     }
 
@@ -75,6 +79,7 @@ public class NPCDialogue : MonoBehaviour
         dialogueCanvas.SetActive(true);
         dialogueText.text = dialogueLines[currentLineIndex];
         interactionText.gameObject.SetActive(false);
+        PlayDialogueSound();
     }
 
     public void AdvanceDialogue()
@@ -84,6 +89,7 @@ public class NPCDialogue : MonoBehaviour
         if (currentLineIndex < dialogueLines.Length)
         {
             dialogueText.text = dialogueLines[currentLineIndex];
+            PlayDialogueSound();
         }
         else
         {
@@ -111,6 +117,14 @@ public class NPCDialogue : MonoBehaviour
         else
         {
             Debug.LogError("QuestManager instance not found! Ensure it's added to the scene.");
+        }
+    }
+
+    void PlayDialogueSound()
+    {
+        if (dialogueAudioSource != null && dialogueSound != null)
+        {
+            dialogueAudioSource.PlayOneShot(dialogueSound);
         }
     }
 

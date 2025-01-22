@@ -54,7 +54,7 @@ public class ConnectionApprovalHandler : MonoBehaviour
         }
         response.Approved = isApproved;
         response.CreatePlayerObject = isApproved;
-        response.Position = new Vector3(0, 3, 0);
+        response.Position = new Vector3(226.39f, 6.04f, 298.06f);
     }
 
     private void OnClientDisconnectCallback(ulong clientID)

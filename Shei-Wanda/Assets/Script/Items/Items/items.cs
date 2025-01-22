@@ -39,7 +39,7 @@ public abstract class Item : MonoBehaviour
     private bool isCurrentlyGrabbed = false;
 
     [Header("Add Items to Inventory")]
-    [SerializeField] private Inventory playerInventory;
+    private Inventory playerInventory;
     [SerializeField] private InputActionReference addToInventoryAction;
 
     public abstract void Use(InputAction.CallbackContext context, bool isLeftHand);

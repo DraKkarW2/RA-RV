@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33508027086599148}
   - component: {fileID: 23943386736312554}
   - component: {fileID: 70779130982375307}
-  - component: {fileID: 8983507641037891542}
   - component: {fileID: 7541929871972085397}
   m_Layer: 6
   m_Name: sandwich
@@ -113,21 +112,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8983507641037891542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327932505511970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becb55758b590b447bcff1c385a60ca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xrOrigin: {fileID: 0}
-  useItem: {fileID: 0}
-  numberOfUses: 1
 --- !u!114 &7541929871972085397
 MonoBehaviour:
   m_ObjectHideFlags: 0

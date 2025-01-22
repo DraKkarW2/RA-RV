@@ -9,6 +9,10 @@ public class Equipment : Item
     [SerializeField] private Player player;
     private float timer = 0f;
 
+    // Références aux composants de la flashlight
+    [SerializeField] private ToggleLight flashlightSpotLight;
+    [SerializeField] private ChangeMaterial flashlightSphere;
+
     // M�thodes sp�cifiques
     public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
@@ -43,6 +47,9 @@ public class Equipment : Item
                 if (player != null)
                 {
                     Debug.Log("flashlight ACTIVATED");
+                    // Activer la lumière et changer le matériau
+                    flashlightSpotLight.TurnOn();       // Allume la lumière
+                    flashlightSphere.ToggleMaterial();  // Bascule le matériau
                 }
                 break;
             default:
@@ -59,6 +66,9 @@ public class Equipment : Item
                 if (player != null)
                 {
                     Debug.Log("flashlight DESACTIVATED");
+                    // Éteindre la lumière et réinitialiser le matériau
+                    flashlightSpotLight.TurnOff();      // Éteint la lumière
+                    flashlightSphere.ToggleMaterial();  // Bascule le matériau
                 }
                 break;
             default:

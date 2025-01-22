@@ -46372,10 +46372,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4229339840427367716, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
-      propertyPath: sprintAction
-      value: 
-      objectReference: {fileID: 5252286226149842285, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     - target: {fileID: 4492434833935493609, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -46456,6 +46452,82 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5940235985831344153, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_LeftHandMoveAction.m_Reference
+      value: 
+      objectReference: {fileID: 6972639530819350904, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6215330194995726632, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_RightHandTurnAction.m_Reference
+      value: 
+      objectReference: {fileID: -6493913391331992944, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_SelectAction.m_Reference
+      value: 
+      objectReference: {fileID: 2171964849148903849, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIPressAction.m_Reference
+      value: 
+      objectReference: {fileID: 3279264004350380116, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ActivateAction.m_Reference
+      value: 
+      objectReference: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_PositionAction.m_Reference
+      value: 
+      objectReference: {fileID: -3326005586356538449, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_RotationAction.m_Reference
+      value: 
+      objectReference: {fileID: 5101698808175986029, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIScrollAction.m_Reference
+      value: 
+      objectReference: {fileID: -6756787485274679044, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_IsTrackedAction.m_Reference
+      value: 
+      objectReference: {fileID: -7044516463258014562, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ScaleDeltaAction.m_Reference
+      value: 
+      objectReference: {fileID: -6447266317303757838, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ScaleToggleAction.m_Reference
+      value: 
+      objectReference: {fileID: -2524354804938687746, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_SelectActionValue.m_Reference
+      value: 
+      objectReference: {fileID: -1758520528963094988, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_HapticDeviceAction.m_Reference
+      value: 
+      objectReference: {fileID: -8222252007134549311, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_RotateAnchorAction.m_Reference
+      value: 
+      objectReference: {fileID: -5913262927076077117, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIPressActionValue.m_Reference
+      value: 
+      objectReference: {fileID: -5908353012961274365, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ActivateActionValue.m_Reference
+      value: 
+      objectReference: {fileID: 7904272356298805229, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_TrackingStateAction.m_Reference
+      value: 
+      objectReference: {fileID: -1277054153949319361, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_TranslateAnchorAction.m_Reference
+      value: 
+      objectReference: {fileID: 875253871413052681, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 6231118817755122757, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_DirectionalAnchorRotationAction.m_Reference
+      value: 
+      objectReference: {fileID: -440298646266941818, guid: 187699734397741438ce50daa5794ad5, type: 3}
     - target: {fileID: 6666113690499075786, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -46476,6 +46548,78 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_SelectAction.m_Reference
+      value: 
+      objectReference: {fileID: 2679313739130756647, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIPressAction.m_Reference
+      value: 
+      objectReference: {fileID: -6395602842196007441, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ActivateAction.m_Reference
+      value: 
+      objectReference: {fileID: -7383051535732221932, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_PositionAction.m_Reference
+      value: 
+      objectReference: {fileID: -2024308242397127297, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_RotationAction.m_Reference
+      value: 
+      objectReference: {fileID: 8248158260566104461, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIScrollAction.m_Reference
+      value: 
+      objectReference: {fileID: 2464016903823916871, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_IsTrackedAction.m_Reference
+      value: 
+      objectReference: {fileID: 840156964685210860, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ScaleDeltaAction.m_Reference
+      value: 
+      objectReference: {fileID: -1636515391019944688, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ScaleToggleAction.m_Reference
+      value: 
+      objectReference: {fileID: -335775248641796371, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_SelectActionValue.m_Reference
+      value: 
+      objectReference: {fileID: 6558622148059887818, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_HapticDeviceAction.m_Reference
+      value: 
+      objectReference: {fileID: -8785819595477538065, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_RotateAnchorAction.m_Reference
+      value: 
+      objectReference: {fileID: -7363382999065477798, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_UIPressActionValue.m_Reference
+      value: 
+      objectReference: {fileID: 71106601250685021, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_ActivateActionValue.m_Reference
+      value: 
+      objectReference: {fileID: -4289430672226363583, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_TrackingStateAction.m_Reference
+      value: 
+      objectReference: {fileID: 684395432459739428, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_TranslateAnchorAction.m_Reference
+      value: 
+      objectReference: {fileID: 7779212132400271959, guid: 187699734397741438ce50daa5794ad5, type: 3}
+    - target: {fileID: 7411577481571547485, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
+      propertyPath: m_DirectionalAnchorRotationAction.m_Reference
+      value: 
+      objectReference: {fileID: -8811388872089202044, guid: 187699734397741438ce50daa5794ad5, type: 3}
     - target: {fileID: 8319662343052192457, guid: 527abff7e5e3e6c43b2e861f3dfb9176, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.062
@@ -81172,6 +81316,10 @@ PrefabInstance:
       propertyPath: dialogueAudioSource
       value: 
       objectReference: {fileID: 391392745}
+    - target: {fileID: 9085988337874235658, guid: a7d60247b0450d34c99ee3d056317665, type: 3}
+      propertyPath: closeButton.m_Reference
+      value: 
+      objectReference: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
     - target: {fileID: 9094178269956541689, guid: a7d60247b0450d34c99ee3d056317665, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.2834164
@@ -81399,7 +81547,7 @@ PrefabInstance:
     - target: {fileID: 6902887887916418371, guid: ce3658428a8e46e48ba715b7b92d47bb, type: 3}
       propertyPath: closeButton.m_Reference
       value: 
-      objectReference: {fileID: 5839159071551158867, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -81413,6 +81561,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 249383290622134022, guid: 78401cc89f573f4408e0739078e23c7b, type: 3}
+      propertyPath: exitButton.m_Reference
+      value: 
+      objectReference: {fileID: 5821920274910857083, guid: 187699734397741438ce50daa5794ad5, type: 3}
     - target: {fileID: 1187746886587186109, guid: 78401cc89f573f4408e0739078e23c7b, type: 3}
       propertyPath: m_Name
       value: LockerHind
@@ -81616,6 +81768,10 @@ PrefabInstance:
       propertyPath: interactionZone
       value: 
       objectReference: {fileID: 6376036193149371238}
+    - target: {fileID: 1601034285593434430, guid: bc15f06e1e7b8a942bbec6d34bbe82c3, type: 3}
+      propertyPath: interactButton.m_Reference
+      value: 
+      objectReference: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
     - target: {fileID: 1771973392071489200, guid: bc15f06e1e7b8a942bbec6d34bbe82c3, type: 3}
       propertyPath: m_Size.x
       value: 3.0659664

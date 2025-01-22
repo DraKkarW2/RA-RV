@@ -1346,6 +1346,10 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8580928342044226746, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.381
+      objectReference: {fileID: 0}
     - target: {fileID: 8580928342044226758, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.062
@@ -1380,7 +1384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8580928342044226832, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.019989
+      value: 5.83
       objectReference: {fileID: 0}
     - target: {fileID: 8580928342044226832, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10369,7 +10373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5050188456414122779, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 301.35
+      value: 280.28
       objectReference: {fileID: 0}
     - target: {fileID: 5050188456414122779, guid: 52621bcde7420c34a9cc3b26739a9c25, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18767,6 +18771,8 @@ MonoBehaviour:
   animator: {fileID: 1853851898}
   leftHand: {fileID: 600586400}
   rightHand: {fileID: 743118874}
+  characterController: {fileID: 0}
+  moveSpeed: 2
 --- !u!95 &1853851898 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8580928342037256848, guid: 43c756734f8ebfc45a4aef2cd2b32891, type: 3}
@@ -18784,6 +18790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1603546dc380144f9088bebba69a48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 1853851891}
+  moveSpeed: 2
+  rotationSpeed: 10
+  animator: {fileID: 1853851898}
 --- !u!4 &1863599695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8339848813229404518, guid: 7e2459eabafe25a4ba7c5d494bc6700a, type: 3}

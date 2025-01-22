@@ -9,16 +9,30 @@ public class VRAnimationController : MonoBehaviour
     public Transform leftHand;
     public Transform rightHand;
 
+    public CharacterController characterController; 
+    public float moveSpeed = 2.0f; 
+
     private float speed;
+
+    void Start()
+    {
+        if (characterController == null)
+        {
+            characterController = GetComponent<CharacterController>();
+        }
+    }
 
     void Update()
     {
         speed = Mathf.Max(leftHand.position.magnitude, rightHand.position.magnitude);
-        animator.SetFloat("Speed", speed);  
+        animator.SetFloat("Speed", speed);
 
-        if (leftHand != null)
+        if (leftHand != null && rightHand != null)
         {
             animator.SetFloat("HandDistance", Vector3.Distance(leftHand.position, rightHand.position));
         }
+
+        Vector3 move = transform.forward * speed * moveSpeed * Time.deltaTime;
+        characterController.Move(move);
     }
 }

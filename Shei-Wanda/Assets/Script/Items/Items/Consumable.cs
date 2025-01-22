@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,9 @@ public class Consumable : Item
     {
         inventory = playerInventory;
     }
+
+    [SerializeField] private Player player;
+    [SerializeField] private DoorInteraction doorInteraction;   // Select the Exit Door
 
     public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
@@ -50,17 +54,57 @@ public class Consumable : Item
         switch (itemType.ToLower())
         {
             case "cofee":
+                player.Sanity += 25;
+                StartCoroutine(MaxStamina(20f));
                 Debug.Log("COFFEE USED");
                 break;
+
             case "sandwich":
+                player.Health += 50;
                 Debug.Log("SANDWICH USED");
                 break;
+
             case "battery":
+                player.Battery += 100;
                 Debug.Log("BATTERY USED");
                 break;
+
+            case "key":
+                UseKey();
+                Debug.Log("KEY USED");
+                break;
+
             default:
                 Debug.Log("Type d'item inconnu.");
                 break;
+        }
+    }
+
+    private IEnumerator MaxStamina(float duration)
+    {
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+
+            if (player.Stamina != 100)
+                player.Stamina = 100;
+
+            yield return null; // Attends la prochaine frame avant de continuer
+        }
+    }
+
+    private void UseKey()
+    {
+        if (doorInteraction != null)
+        {
+            doorInteraction.alwaysClosed = false; // Déverrouille la porte
+            Debug.Log("The door is now unlocked and can be opened.");
+        }
+        else
+        {
+            Debug.LogWarning("No door assigned to unlock with the key.");
         }
     }
 }

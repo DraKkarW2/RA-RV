@@ -7,9 +7,14 @@ public class Equipment : Item
     private bool isActiveLeft = false;
     private bool isActiveRight = false;
 
+    [SerializeField] private Player player;
+    private float timer = 0f;
+
     // M�thodes sp�cifiques
     public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
+        if (player.Battery <= 0) return;
+
         if (isLeftHand)
         {
             // Inverse l'�tat d'activation pour la main gauche
@@ -74,6 +79,32 @@ public class Equipment : Item
             {
                 isActiveRight = false;
                 Debug.Log($"{Name} (right hand) state reset to inactive.");
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // Désactive l'équipement si la batterie est vide
+        if (player.Battery <= 0)
+        {
+            isActiveLeft = false;
+            isActiveRight = false;
+            return; // Arrête l'exécution de la fonction
+        }
+
+        if (isActiveLeft || isActiveRight)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= 2f)    // Battery decreased every 2s
+            {
+                timer = 0f; // Réinitialise le compteur de temps
+
+                if (isActiveLeft && isActiveRight)
+                    player.Battery -= 2;
+                else
+                    player.Battery--;
             }
         }
     }

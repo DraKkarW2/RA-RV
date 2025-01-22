@@ -10,6 +10,7 @@ public class DoorInteraction : MonoBehaviour
     public Transform door;  // Référence à la porte à ouvrir
     public float openAngle = 90f;  // Angle maximal d'ouverture
     public float openSpeed = 2f;  // Vitesse d'ouverture
+    public bool alwaysClosed = false; // for the Exit Door
 
     private bool isOpening = false;
     private bool canOpen = false;
@@ -24,6 +25,14 @@ public class DoorInteraction : MonoBehaviour
 
     void Update()
     {
+        // Si "alwaysClosed" est activé, ignorer toute tentative d'ouverture
+        if (alwaysClosed)
+        {
+            isOpening = false; // Assurer que l'ouverture ne se produit jamais
+            door.rotation = initialRotation; // Rester à la rotation initiale
+            return;
+        }
+
         // Vérification si le bouton d'interaction est pressé (VR ou clavier)
         if (canOpen && (closeButton.action.WasPressedThisFrame() || Input.GetKeyDown(keyboardKey)))
         {

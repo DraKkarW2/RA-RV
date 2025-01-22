@@ -32,9 +32,22 @@ public class Player : Entity
         set => _health = Mathf.Clamp(value, 0, 100);
     }
 
+    // Varibale for the Equipements' Player
+    private int _battery = 200;
+    public int Battery
+    {
+        get => _battery;
+        set => _battery = Mathf.Clamp(value, 0, 200);
+    }
+
     public bool Sprint { get; set; }
     public bool Exhausted { get; private set; }
-    public int Money { get; set; }
+
+    private int _money = 20;
+    public int Money {
+        get => _money; 
+        set => _money = Mathf.Clamp(value, 0, 20);
+    }
 
 
     [Header("XR Origin & Action References")]

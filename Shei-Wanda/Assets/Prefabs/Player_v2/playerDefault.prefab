@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ActionAssets:
-  - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - {fileID: -944628639613478452, guid: 187699734397741438ce50daa5794ad5, type: 3}
 --- !u!143 &6764463154878396609
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1481,8 +1481,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xrOrigin: {fileID: 4904329711192556782}
-  moveAction: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  sprintAction: {fileID: 6849741063044718895, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  moveAction: {fileID: 6972639530819350904, guid: 187699734397741438ce50daa5794ad5, type: 3}
+  sprintAction: {fileID: 5252286226149842285, guid: 187699734397741438ce50daa5794ad5, type: 3}
   normalSpeed: 7
   sprintSpeed: 12
 --- !u!1 &6883848232801209857

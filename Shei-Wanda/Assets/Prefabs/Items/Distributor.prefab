@@ -178,12 +178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coffeeParticles: {fileID: 6435362374775387141}
-  coffeeCupPrefab: {fileID: 4059473235913210248, guid: 1925bb2fe2bea1c48873454234d200c2, type: 3}
+  coffeeCupPrefab: {fileID: 4059473235913210248, guid: 042fc6b6b4c640149b1b86bb45455d34, type: 3}
   cupSpawnPoint: {fileID: 5257178733310904816}
   distributorText: {fileID: 5939516377465681484}
   interactionZone: {fileID: 4744313747794554772}
   fillTime: 5
-  serveCoffeeAction: {fileID: 5821920274910857083, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  serveCoffeeAction: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
 --- !u!65 &4744313747794554772
 BoxCollider:
   m_ObjectHideFlags: 0

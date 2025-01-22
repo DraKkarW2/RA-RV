@@ -4,35 +4,30 @@ using UnityEngine;
 
 public class VRAnimationController : MonoBehaviour
 {
-    public Animator animator;
-
-    public Transform leftHand;
-    public Transform rightHand;
-
-    public CharacterController characterController; 
-    public float moveSpeed = 1.0f; 
+    public Animator animator; // Gestion des animations
+    public Transform leftHand; // Main gauche VR
+    public Transform rightHand; // Main droite VR
+    public Transform playerTransform; // Référence au Player
 
     private float speed;
 
-    void Start()
-    {
-        if (characterController == null)
-        {
-            characterController = GetComponent<CharacterController>();
-        }
-    }
-
     void Update()
     {
-        speed = Mathf.Max(leftHand.position.magnitude, rightHand.position.magnitude);
-        animator.SetFloat("Speed", speed);
-
+        // Synchronisation des animations
         if (leftHand != null && rightHand != null)
         {
             animator.SetFloat("HandDistance", Vector3.Distance(leftHand.position, rightHand.position));
         }
 
-        Vector3 move = transform.forward * speed * moveSpeed * Time.deltaTime;
-        characterController.Move(move);
+        // Calculer la vitesse en fonction des déplacements du Player
+        Vector3 playerVelocity = playerTransform.GetComponent<CharacterController>().velocity;
+        speed = playerVelocity.magnitude;
+
+        // Appliquer la vitesse à l'Animator
+        animator.SetFloat("Speed", speed);
+
+        // Synchroniser UnityChan avec le Player
+        transform.position = playerTransform.position;
+        transform.rotation = playerTransform.rotation;
     }
 }

@@ -5,13 +5,11 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField]
     private int maxSize = 5;                        // Taille maximale de l'inventaire
+
     private List<Item> items = new List<Item>();    // Liste des items dans l'inventaire
     private Item leftHandItem;
     private Item rightHandItem;
-
-    [SerializeField]
     private Equipment leftHandEquipment;  // Référence à l'équipement de la main gauche
-    [SerializeField]
     private Equipment rightHandEquipment; // Référence à l'équipement de la main droite
 
     // Ajoute un item à l'inventaire

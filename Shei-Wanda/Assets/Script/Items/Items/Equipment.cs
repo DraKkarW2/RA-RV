@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Equipment : Item
 {
-    [SerializeField]
     private bool isActiveLeft = false;
     private bool isActiveRight = false;
 

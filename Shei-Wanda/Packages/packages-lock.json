@@ -81,9 +81,44 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.meta.xr.sdk.sharedassets": {
+      "version": "68.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.textmeshpro": "3.0.6"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.meta.xr.sdk.voice": {
       "version": "71.0.0",
       "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.meta.xr.sdk.voice.composer": {
+      "version": "64.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.meta.xr.sdk.voice": "64.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.meta.xr.sdk.voice.dictation": {
+      "version": "64.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.meta.xr.sdk.voice": "64.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.meta.xr.sdk.voice.telemetry": {
+      "version": "64.0.0",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -385,6 +420,24 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.arfoundation": {
+      "version": "5.1.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.inputsystem": "1.3.0",
+        "com.unity.mathematics": "1.2.5",
+        "com.unity.xr.core-utils": "2.2.1",
+        "com.unity.xr.management": "4.0.1",
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.modules.particlesystem": "1.0.0",
+        "com.unity.modules.unityanalytics": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "com.meta.xr.sdk.all": "71.0.0",
+    "com.meta.xr.sdk.sharedassets": "68.0.0",
+    "com.meta.xr.sdk.voice.composer": "64.0.0",
+    "com.meta.xr.sdk.voice.dictation": "64.0.0",
+    "com.meta.xr.sdk.voice.telemetry": "64.0.0",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.6.0",
     "com.unity.feature.development": "1.0.1",
@@ -13,6 +17,7 @@
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.4",
+    "com.unity.xr.arfoundation": "5.1.5",
     "com.unity.xr.interaction.toolkit": "2.6.3",
     "com.unity.xr.openxr": "1.13.2",
     "com.unity.modules.ai": "1.0.0",

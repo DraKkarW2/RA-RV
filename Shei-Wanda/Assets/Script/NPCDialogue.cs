@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 public class NPCDialogue : MonoBehaviour
 {
     [Header("UI Elements")]
-    public GameObject dialogueCanvas;  // Canvas UI du dialogue
-    public TextMeshProUGUI dialogueText;  // Texte pour afficher le dialogue
-    public TextMeshProUGUI interactionText;  // Texte d'invite "Appuyer sur A..."
+    public GameObject dialogueCanvas;  // Canvas UI du dialogue (toujours actif)
+    public TextMeshProUGUI dialogueText;  // Texte pour afficher le dialogue (affichage dynamique)
+    public TextMeshProUGUI interactionText;  // Texte d'invite "Appuyer sur A..." (toujours visible)
     public GameObject questCanvas;  // UI pour la quête
     public TextMeshProUGUI questText;  // Texte pour "PC Fermés : 0/10"
 
@@ -18,17 +18,18 @@ public class NPCDialogue : MonoBehaviour
     private bool dialogueActive = false;
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioSource dialogueAudioSource; // Audio source pour le son des dialogues
-    [SerializeField] private AudioClip dialogueSound; // Son à jouer pour chaque dialogue
+    [SerializeField] private AudioSource dialogueAudioSource;
+    [SerializeField] private AudioClip dialogueSound;
 
     [SerializeField] private InputActionProperty closeButton;
     [SerializeField] private KeyCode keyboardKey = KeyCode.Space;
 
     void Start()
     {
-        dialogueCanvas.SetActive(false);
-        interactionText.gameObject.SetActive(false);
-        questCanvas.SetActive(false);
+        dialogueCanvas.SetActive(true);  // Toujours visible
+        dialogueText.gameObject.SetActive(false);  // Masquer le texte du dialogue au début
+        interactionText.gameObject.SetActive(true);  // Toujours afficher le texte d'interaction
+        questCanvas.SetActive(false);  // Cacher la quête au début
     }
 
     void Update()
@@ -51,10 +52,6 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            if (!dialogueActive)
-            {
-                interactionText.gameObject.SetActive(true);
-            }
             Debug.Log("Joueur entré dans la zone du PNJ !");
         }
     }
@@ -64,7 +61,6 @@ public class NPCDialogue : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            interactionText.gameObject.SetActive(false);
             if (dialogueActive)
             {
                 EndDialogue();
@@ -76,9 +72,8 @@ public class NPCDialogue : MonoBehaviour
     void StartDialogue()
     {
         dialogueActive = true;
-        dialogueCanvas.SetActive(true);
+        dialogueText.gameObject.SetActive(true);  // Afficher le texte du dialogue
         dialogueText.text = dialogueLines[currentLineIndex];
-        interactionText.gameObject.SetActive(false);
         PlayDialogueSound();
     }
 
@@ -101,7 +96,7 @@ public class NPCDialogue : MonoBehaviour
     void EndDialogue()
     {
         dialogueActive = false;
-        dialogueCanvas.SetActive(false);
+        dialogueText.gameObject.SetActive(false);  // Cacher le texte du dialogue après la fin
         currentLineIndex = 0;
     }
 

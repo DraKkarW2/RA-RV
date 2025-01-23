@@ -194,7 +194,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 5839159071551158867, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 5839159071551158867, guid: 187699734397741438ce50daa5794ad5, type: 3}
   keyboardKey: 32
   interactionZone: {fileID: 209944365081014782}
   scareDuration: 4

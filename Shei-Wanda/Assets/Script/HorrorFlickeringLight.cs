@@ -11,6 +11,8 @@ public class HorrorFlickeringLight : MonoBehaviour
     public bool enableFlickerSound = true; // Activer/désactiver le son de clignotement
     public AudioSource audioSource; // Source audio pour le son
     public AudioClip flickerSound; // Son de clignotement
+    public AudioClip flickerMusic; // Musique pour les lumières qui clignotent
+    public AudioClip lightsOffMusic; // Musique pour les lumières éteintes
 
     private float targetIntensity;
     private float timer;
@@ -46,12 +48,20 @@ public class HorrorFlickeringLight : MonoBehaviour
         {
             StartFlickering();
             flickerStarted = true;
+            if (audioSource != null && flickerMusic != null)
+            {
+                audioSource.PlayOneShot(flickerMusic);
+            }
         }
 
         if (elapsedTime >= 600f && !lightsOffStarted) // 10 minutes
         {
             TurnOffSomeLights();
             lightsOffStarted = true;
+            if (audioSource != null && lightsOffMusic != null)
+            {
+                audioSource.PlayOneShot(lightsOffMusic);
+            }
         }
 
         if (isFlickering)

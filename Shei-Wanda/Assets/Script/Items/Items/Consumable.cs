@@ -53,12 +53,21 @@ public class Consumable : Item
     {
         switch (itemType.ToLower())
         {
-            case "cofee":
+            case "coffee":
                 if (player != null)
                 {
                     player.Sanity += 25;
                     StartCoroutine(MaxStamina(20f));
                     Debug.Log("COFFEE USED");
+                }
+                break;
+
+            case "selecto":
+                if (player != null)
+                {
+                    player.Sanity += 35;
+                    StartCoroutine(MaxStamina(20f));
+                    Debug.Log("SELECTO USED");
                 }
                 break;
 

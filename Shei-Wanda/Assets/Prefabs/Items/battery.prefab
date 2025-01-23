@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 95104716451170190}
   - component: {fileID: 6028195251362682173}
   - component: {fileID: -7603810633222240852}
-  - component: {fileID: -6445824871034842676}
   m_Layer: 0
   m_Name: battery
   m_TagString: Untagged
@@ -287,18 +286,3 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &-6445824871034842676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123693314251274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: becb55758b590b447bcff1c385a60ca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xrOrigin: {fileID: 0}
-  useItem: {fileID: 0}
-  numberOfUses: 1

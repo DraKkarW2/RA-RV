@@ -178,6 +178,7 @@ MonoBehaviour:
   door: {fileID: 6514326468093531408}
   openAngle: 110
   openSpeed: 1.5
+  alwaysClosed: 0
 --- !u!4 &6514326468093531408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 641435495294099673, guid: a393a39cc1573e649973bf692092eec1, type: 3}

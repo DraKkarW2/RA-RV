@@ -82,7 +82,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 5821920274910857083, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 5821920274910857083, guid: 187699734397741438ce50daa5794ad5, type: 3}
 --- !u!1 &2143870250464522388
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1dbcdd8ff94528e48b2ec42b537b1d40, type: 2}
     - target: {fileID: 919132149155446097, guid: f6e8302f7d19f1f4d984e6ea15faabd0, type: 3}
       propertyPath: m_Name
-      value: LockerHind 1
+      value: LockerHind
       objectReference: {fileID: 0}
     - target: {fileID: 2613854932304126952, guid: f6e8302f7d19f1f4d984e6ea15faabd0, type: 3}
       propertyPath: m_Materials.Array.data[0]

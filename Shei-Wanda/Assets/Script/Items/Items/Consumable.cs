@@ -66,7 +66,7 @@ public class Consumable : Item
                 if (player != null)
                 {
                     player.Sanity += 35;
-                    StartCoroutine(MaxStamina(20f));
+                    StartCoroutine(MaxStamina(40f));
                     Debug.Log("SELECTO USED");
                 }
                 break;

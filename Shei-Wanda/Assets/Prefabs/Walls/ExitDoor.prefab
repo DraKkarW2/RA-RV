@@ -350,3 +350,4 @@ MonoBehaviour:
   door: {fileID: 5463533959745687819}
   openAngle: 110
   openSpeed: 1.5
+  alwaysClosed: 0

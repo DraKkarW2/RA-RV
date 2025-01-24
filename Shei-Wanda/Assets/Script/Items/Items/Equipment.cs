@@ -12,7 +12,7 @@ public class Equipment : Item
     // Références aux composants de la flashlight
     [SerializeField] private ToggleLight flashlightSpotLight;
     [SerializeField] private ChangeMaterial flashlightSphere;
-
+    public new string ItemType;
     // M�thodes sp�cifiques
     public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
@@ -41,6 +41,7 @@ public class Equipment : Item
     // M�thode appel�e lors de l'activation de l'�quipement
     private void Activate(bool isLeftHand)
     {
+        Debug.Log($"Type: {ItemType}");
         switch (ItemType.ToLower())
         {
             case "flashlight":

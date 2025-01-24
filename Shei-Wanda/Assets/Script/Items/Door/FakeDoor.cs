@@ -68,9 +68,18 @@ public class FakeDoor : MonoBehaviour
         {
             audioSource.PlayOneShot(screamerSound);
             Debug.Log("Screamer déclenché !");
+
+            // Réduire la sanité du joueur
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player.GetComponent<PlayerSanity>().ReduceSanity(10);
+            }
+
             Invoke(nameof(StopScreamer), scareDuration); // Arrêter le son après la durée définie
         }
     }
+
 
     void StopScreamer()
     {

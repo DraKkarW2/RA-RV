@@ -10,7 +10,6 @@ public class HorrorFlickeringLight : MonoBehaviour
     public float flickerSpeed = 0.1f; // Vitesse du clignotement
     public bool enableFlickerSound = true; // Activer/désactiver le son de clignotement
     public AudioSource audioSource; // Source audio pour le son
-    public AudioClip flickerSound; // Son de clignotement
     public AudioClip flickerMusic; // Musique pour les lumières qui clignotent
     public AudioClip lightsOffMusic; // Musique pour les lumières éteintes
 
@@ -44,22 +43,25 @@ public class HorrorFlickeringLight : MonoBehaviour
             UpdateTimerDisplay();
         }
 
-        if (elapsedTime >= 300f && !flickerStarted) // 5 minutes
+        if (elapsedTime >= 20f && !flickerStarted) // 5 minutes
         {
             StartFlickering();
             flickerStarted = true;
-            if (audioSource != null && flickerMusic != null)
+            if (audioSource != null && flickerMusic != null && !audioSource.isPlaying)
             {
-                audioSource.PlayOneShot(flickerMusic);
+                audioSource.loop = true;
+                audioSource.clip = flickerMusic;
+                audioSource.Play();
             }
         }
 
-        if (elapsedTime >= 600f && !lightsOffStarted) // 10 minutes
+        if (elapsedTime >= 40f && !lightsOffStarted) // 10 minutes
         {
             TurnOffSomeLights();
             lightsOffStarted = true;
             if (audioSource != null && lightsOffMusic != null)
             {
+                audioSource.loop = false;
                 audioSource.PlayOneShot(lightsOffMusic);
             }
         }
@@ -71,10 +73,6 @@ public class HorrorFlickeringLight : MonoBehaviour
             {
                 targetIntensity = Random.Range(minIntensity, maxIntensity);
                 timer = 0;
-                if (enableFlickerSound && audioSource != null && flickerSound != null)
-                {
-                    audioSource.PlayOneShot(flickerSound);
-                }
             }
             lightSource.intensity = Mathf.Lerp(lightSource.intensity, targetIntensity, Time.deltaTime * 10);
         }

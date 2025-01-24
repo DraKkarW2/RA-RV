@@ -17,14 +17,10 @@ public abstract class Entity : MonoBehaviour
     }
 
     private Vector3 _position;
-    public Vector3 Position
+    public virtual Vector3 Position
     {
-        get => _position;
-        set
-        {
-            _position = value;
-            transform.position = _position;
-        }
+        get => transform.position;
+        set => transform.position = value;
     }
 
     private int _speed;

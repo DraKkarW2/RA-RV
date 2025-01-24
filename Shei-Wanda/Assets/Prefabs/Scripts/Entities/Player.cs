@@ -19,11 +19,13 @@ public class Player : Entity
         }
     }
 
-    private int _sanity;
+    
+
+    [SerializeField] private int _sanity = 100;
     public int Sanity
     {
         get => _sanity;
-        set => _sanity = Mathf.Max(0, value);
+        set => _sanity = Mathf.Clamp(value, 0, 100);
     }
 
     [SerializeField] private int _health = 100; 

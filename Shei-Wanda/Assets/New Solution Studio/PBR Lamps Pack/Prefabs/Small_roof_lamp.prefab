@@ -160,13 +160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b5bf9706f2aab4b80c0ff4763d1c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightSource: {fileID: 5604022527814816860}
-  minIntensity: 1
-  maxIntensity: 2.5
+  lightSource: {fileID: 0}
+  minIntensity: 0.5
+  maxIntensity: 1.5
   flickerSpeed: 0.08
   enableFlickerSound: 1
   audioSource: {fileID: 1470148878702641633}
-  flickerSound: {fileID: 0}
   flickerMusic: {fileID: 8300000, guid: be698e59b252e204ab6f8fbae59e5713, type: 3}
   lightsOffMusic: {fileID: 8300000, guid: 2b624518f1920b140a5c86782dd1bd36, type: 3}
   timerText: {fileID: 0}

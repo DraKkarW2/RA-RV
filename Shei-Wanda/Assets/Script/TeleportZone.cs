@@ -2,46 +2,53 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class TeleportZone : MonoBehaviour
 {
+    [Header("Positions")]
     [SerializeField] private Transform entryPosition;  // Position à l'entrée du casier
-    [SerializeField] private Transform hidePosition;  // Position à l'intérieur du casier
-    [SerializeField] private Transform exitPosition;  // Position de sortie du casier
-    [SerializeField] private Canvas exitCanvas;       // Canvas avec le message
-    [SerializeField] private KeyCode exitKey = KeyCode.Space;  // Touche pour sortir
-    [SerializeField] private InputActionProperty exitButton;  // Bouton A du joystick droit
+    [SerializeField] private Transform hidePosition;   // Position à l'intérieur du casier
+    [SerializeField] private Transform exitPosition;   // Position de sortie du casier
+
+    [Header("UI Elements")]
+    [SerializeField] private Canvas exitCanvas;        // Canvas avec le message
+
+    [Header("Input Settings")]
+    [SerializeField] private KeyCode exitKey = KeyCode.Space;      // Touche pour sortir
+    [SerializeField] private InputActionProperty exitButton;       // Bouton A du joystick droit
+
+    [Header("XR Movement Components")]
+    public ActionBasedContinuousMoveProvider MoveProvider; // XR Movement
+    public ActionBasedContinuousTurnProvider TurnProvider; // XR Rotation
 
     private GameObject xrRig;
-    private CharacterController characterController;
-    private Rigidbody capsuleRigidbody;
     private bool isHidden = false;
 
     void Start()
     {
+        // Initialisation de xrRig
         xrRig = GameObject.Find("XR Origin (XR Rig)");
-        if (xrRig != null)
+        if (xrRig == null)
         {
-            characterController = xrRig.GetComponent<CharacterController>();
-            capsuleRigidbody = xrRig.transform.Find("Capsule").GetComponent<Rigidbody>();
-            if (capsuleRigidbody != null)
-            {
-                capsuleRigidbody.isKinematic = true;  // Assurer qu'il est en cinématique
-            }
+            Debug.LogError("XR Rig not found in the scene!");
+            return;
+        }
+
+        // Désactiver le Canvas de sortie
+        if (exitCanvas != null)
+        {
+            exitCanvas.gameObject.SetActive(false);
         }
         else
         {
-            Debug.LogError("XR Rig not found in the scene!");
-        }
-
-        if (exitCanvas != null)
-        {
-            exitCanvas.gameObject.SetActive(false);  // Désactiver le message au début
+            Debug.LogWarning("Exit Canvas is not assigned in the Inspector.");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Vérification si le joueur entre dans la zone
         if (other.CompareTag("Player") && !isHidden)
         {
             StartCoroutine(TeleportToHide());
@@ -50,6 +57,7 @@ public class TeleportZone : MonoBehaviour
 
     void Update()
     {
+        // Vérifier la sortie lorsque le joueur est caché
         if (isHidden && (Input.GetKeyDown(exitKey) || exitButton.action.WasPressedThisFrame()))
         {
             StartCoroutine(TeleportToExit());
@@ -60,30 +68,21 @@ public class TeleportZone : MonoBehaviour
     {
         if (xrRig == null || hidePosition == null) yield break;
 
-        if (characterController != null)
-            characterController.enabled = false;
-
-        if (capsuleRigidbody != null)
-        {
-            capsuleRigidbody.isKinematic = true;
-            capsuleRigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
-        }
+        // Désactiver les mouvements
+        SetMovementEnabled(false);
 
         yield return null;
 
+        // Téléportation
         xrRig.transform.position = hidePosition.position;
         xrRig.transform.rotation = hidePosition.rotation;
         isHidden = true;
 
+        // Activer le Canvas de sortie
         if (exitCanvas != null)
         {
             exitCanvas.gameObject.SetActive(true);
         }
-
-        yield return new WaitForSeconds(0.1f);
-
-        if (characterController != null)
-            characterController.enabled = true;
 
         Debug.Log("Joueur caché dans le casier");
     }
@@ -92,31 +91,31 @@ public class TeleportZone : MonoBehaviour
     {
         if (xrRig == null || exitPosition == null) yield break;
 
-        if (characterController != null)
-            characterController.enabled = false;
-
-        if (capsuleRigidbody != null)
-        {
-            capsuleRigidbody.isKinematic = true;
-            capsuleRigidbody.constraints = RigidbodyConstraints.None;
-        }
+        // Réactiver les mouvements
+        SetMovementEnabled(true);
 
         yield return null;
 
+        // Téléportation
         xrRig.transform.position = exitPosition.position;
         xrRig.transform.rotation = exitPosition.rotation;
         isHidden = false;
 
+        // Désactiver le Canvas de sortie
         if (exitCanvas != null)
         {
             exitCanvas.gameObject.SetActive(false);
         }
 
-        yield return new WaitForSeconds(0.1f);
-
-        if (characterController != null)
-            characterController.enabled = true;
-
         Debug.Log("Joueur sorti du casier");
+    }
+
+    private void SetMovementEnabled(bool enabled)
+    {
+        if (MoveProvider != null)
+            MoveProvider.enabled = enabled;
+
+        if (TurnProvider != null)
+            TurnProvider.enabled = enabled;
     }
 }

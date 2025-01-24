@@ -10,7 +10,8 @@ public class HorrorFlickeringLight : MonoBehaviour
     public float flickerSpeed = 0.1f; // Vitesse du clignotement
     public bool enableFlickerSound = true; // Activer/désactiver le son de clignotement
     public AudioSource audioSource; // Source audio pour le son
-    public AudioClip flickerSound; // Son de clignotement
+    public AudioClip flickerMusic; // Musique pour les lumières qui clignotent
+    public AudioClip lightsOffMusic; // Musique pour les lumières éteintes
 
     private float targetIntensity;
     private float timer;
@@ -46,12 +47,23 @@ public class HorrorFlickeringLight : MonoBehaviour
         {
             StartFlickering();
             flickerStarted = true;
+            if (audioSource != null && flickerMusic != null && !audioSource.isPlaying)
+            {
+                audioSource.loop = true;
+                audioSource.clip = flickerMusic;
+                audioSource.Play();
+            }
         }
 
         if (elapsedTime >= 600f && !lightsOffStarted) // 10 minutes
         {
             TurnOffSomeLights();
             lightsOffStarted = true;
+            if (audioSource != null && lightsOffMusic != null)
+            {
+                audioSource.loop = false;
+                audioSource.PlayOneShot(lightsOffMusic);
+            }
         }
 
         if (isFlickering)
@@ -61,10 +73,6 @@ public class HorrorFlickeringLight : MonoBehaviour
             {
                 targetIntensity = Random.Range(minIntensity, maxIntensity);
                 timer = 0;
-                if (enableFlickerSound && audioSource != null && flickerSound != null)
-                {
-                    audioSource.PlayOneShot(flickerSound);
-                }
             }
             lightSource.intensity = Mathf.Lerp(lightSource.intensity, targetIntensity, Time.deltaTime * 10);
         }

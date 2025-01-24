@@ -51,7 +51,7 @@ public class CoffeeDispenserController : MonoBehaviour
 
         if (distributorText != null)
         {
-            distributorText.text = "Appuyez sur le distributeur pour obtenir du café.";
+            distributorText.text = "Obtenir du café. [Trigger]";
         }
 
         // Attache l'action d'entrée pour détecter la pression du bouton VR

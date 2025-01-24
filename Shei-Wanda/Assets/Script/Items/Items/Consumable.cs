@@ -19,27 +19,44 @@ public class Consumable : Item
         }
     }
 
-    private Inventory inventory;
+    public string itemType; // Type d'objet consommable
+    private Inventory inventory; // Inventaire associé
+
+    [SerializeField] private Player player; // Référence au joueur
+    [SerializeField] private DoorInteraction doorInteraction; // Référence à l'interaction de la porte
+
     public void SetInventory(Inventory playerInventory)
     {
         inventory = playerInventory;
     }
 
-    [SerializeField] private Player player;
-    [SerializeField] private DoorInteraction doorInteraction;   // Select the Exit Door
-
     public override void Use(InputAction.CallbackContext context, bool isLeftHand)
     {
         if (NumberOfUses > 0)
         {
-            NumberOfUses--;
+            if (!string.IsNullOrEmpty(itemType))
+            {
+                OnUse(itemType); // Utilisation de l'objet
+            }
+            else
+            {
+                Debug.LogWarning("Item type is not set.");
+                return;
+            }
+
             Debug.Log($"{Name} used in {(isLeftHand ? "left" : "right")} hand, {NumberOfUses} uses left.");
-            OnUse(ItemType);
 
             if (NumberOfUses <= 0)
             {
                 Debug.Log($"{Name} is depleted and will be destroyed.");
-                inventory.RemoveItem(this);
+                if (inventory != null)
+                {
+                    inventory.RemoveItem(this);
+                }
+                else
+                {
+                    Debug.LogWarning("Inventory is not assigned.");
+                }
                 Destroy(gameObject);
             }
         }
@@ -51,52 +68,46 @@ public class Consumable : Item
 
     private void OnUse(string itemType)
     {
+        if (player == null)
+        {
+            Debug.LogWarning("Player is not assigned. Cannot use item.");
+            return;
+        }
+
         switch (itemType.ToLower())
         {
             case "coffee":
-                if (player != null)
-                {
-                    player.Sanity += 25;
-                    StartCoroutine(MaxStamina(20f));
-                    Debug.Log("COFFEE USED");
-                }
+                player.Sanity += 25;
+                StartCoroutine(MaxStamina(20f));
+                NumberOfUses--;
+                Debug.Log("COFFEE USED");
                 break;
 
             case "selecto":
-                if (player != null)
-                {
-                    player.Sanity += 35;
-                    StartCoroutine(MaxStamina(20f));
-                    Debug.Log("SELECTO USED");
-                }
+                player.Sanity += 35;
+                StartCoroutine(MaxStamina(40f));
+                NumberOfUses--;
+                Debug.Log("SELECTO USED");
                 break;
 
             case "sandwich":
-                if (player != null)
-                {
-                    player.Health += 50;
-                    Debug.Log("SANDWICH USED");
-                }
+                player.Health += 50;
+                NumberOfUses--;
+                Debug.Log("SANDWICH USED");
                 break;
 
             case "battery":
-                if (player != null)
-                {
-                    player.Battery += 100;
-                    Debug.Log("BATTERY USED");
-                }
+                player.Battery += 100;
+                NumberOfUses--;
+                Debug.Log("BATTERY USED");
                 break;
 
             case "key":
-                if (player != null)
-                {
-                    UseKey();
-                    Debug.Log("KEY USED");
-                }
+                UseKey();
                 break;
 
             default:
-                Debug.Log("Type d'item inconnu.");
+                Debug.LogWarning("Unknown item type.");
                 break;
         }
     }
@@ -120,8 +131,16 @@ public class Consumable : Item
     {
         if (doorInteraction != null)
         {
-            doorInteraction.alwaysClosed = false; // Déverrouille la porte
-            Debug.Log("The door is now unlocked and can be opened.");
+            if (doorInteraction.alwaysClosed)
+            {
+                doorInteraction.alwaysClosed = false; // Déverrouille la porte
+                Debug.Log("The door is now unlocked and can be opened.");
+                NumberOfUses--;
+            }
+            else
+            {
+                Debug.LogWarning("The door is already unlocked.");
+            }
         }
         else
         {

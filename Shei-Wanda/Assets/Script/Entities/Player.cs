@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;       
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using Unity.XR.CoreUtils;           
+using Unity.XR.CoreUtils;
+using Unity.Netcode;
 
 public class Player : Entity
 {
@@ -18,21 +19,34 @@ public class Player : Entity
         }
     }
 
-    private int _sanity;
+    private int _sanity = 100;
     public int Sanity
     {
         get => _sanity;
-        set => _sanity = Mathf.Max(0, value);
+        set
+        {
+            _sanity = Mathf.Clamp(value, 0, 100);
+            OnSanityChanged?.Invoke(_sanity);  // Notifie les abonnés du changement de sanité
+        }
     }
 
-    private int _health;
+    [SerializeField] private int _health = 100;
     public int Health
     {
         get => _health;
-        set => _health = Mathf.Clamp(value, 0, 100);
+        set
+        {
+            _health = Mathf.Clamp(value, 0, 100);
+            OnHealthChanged?.Invoke(_health);  // Notifie les abonnés du changement de santé
+        }
     }
 
-    // Varibale for the Equipements' Player
+    public delegate void OnHealthChangedDelegate(int currentHealth);
+    public event OnHealthChangedDelegate OnHealthChanged;
+
+    public delegate void OnSanityChangedDelegate(int currentSanity);
+    public event OnSanityChangedDelegate OnSanityChanged;
+
     private int _battery = 200;
     public int Battery
     {
@@ -40,39 +54,66 @@ public class Player : Entity
         set => _battery = Mathf.Clamp(value, 0, 200);
     }
 
-    public bool Sprint { get; set; }
-    public bool Exhausted { get; private set; }
-
     private int _money = 20;
-    public int Money {
-        get => _money; 
+    public int Money
+    {
+        get => _money;
         set => _money = Mathf.Clamp(value, 0, 20);
     }
 
+    [SerializeField]
+    private string entityName;
+
+    public new string Name
+    {
+        get => entityName;
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                entityName = value;
+            else
+                Debug.LogWarning("Name cannot be null or empty.");
+        }
+    }
+
+    public bool Sprint { get; set; }
+    public bool Exhausted { get; private set; }
 
     [Header("XR Origin & Action References")]
-    [SerializeField] private XROrigin xrOrigin;            
-    [SerializeField] private InputActionReference moveAction;   
-    [SerializeField] private InputActionReference sprintAction; 
+    [SerializeField] private XROrigin xrOrigin;
+    [SerializeField] private InputActionReference moveAction;
+    [SerializeField] private InputActionReference sprintAction;
 
     [Header("Vitesse de Déplacement")]
     [SerializeField] private float normalSpeed = 7f;
     [SerializeField] private float sprintSpeed = 12f;
 
- 
     private ActionBasedController leftController;
-    private ActionBasedController rightController; 
+    private ActionBasedController rightController;
     private ContinuousMoveProviderBase moveProvider;
+
+    [Header("Damage Effect")]
+    [SerializeField] private DamageEffect damageEffect;
+
+    // ==================== Propriété redéfinie ====================
+    public override Vector3 Position
+    {
+        get => xrOrigin ? xrOrigin.transform.position : transform.position;
+        set
+        {
+            if (xrOrigin)
+            {
+                xrOrigin.transform.position = value;
+            }
+            else
+            {
+                transform.position = value;
+            }
+        }
+    }
 
     private void Awake()
     {
-        // Assurer que l'inventaire est bien trouvé pour ce joueur
-        Inventory inventory = GetComponentInChildren<Inventory>();
-        if (inventory == null)
-        {
-            Debug.LogWarning("Pas d'inventaire trouvé pour ce joueur !");
-        }
-
         if (xrOrigin == null)
         {
             xrOrigin = GetComponentInChildren<XROrigin>(true);
@@ -84,32 +125,22 @@ public class Player : Entity
         }
         else
         {
-            // Initialiser les contrôleurs (main gauche et droite) pour ce joueur
             leftController = xrOrigin.transform.Find("Camera Offset/Left Controller")
                 ?.GetComponent<ActionBasedController>();
             rightController = xrOrigin.transform.Find("Camera Offset/Right Controller")
                 ?.GetComponent<ActionBasedController>();
 
-            if (leftController == null || rightController == null)
-            {
-                Debug.LogWarning("Contrôleurs gauche ou droit introuvables pour ce joueur.");
-            }
-
             moveProvider = xrOrigin.GetComponentInChildren<ContinuousMoveProviderBase>();
         }
 
-  
         if (moveAction == null)
             Debug.LogError("moveAction n'est pas assigné dans l'Inspector.");
         if (sprintAction == null)
             Debug.LogError("sprintAction n'est pas assigné dans l'Inspector.");
-        if (moveProvider == null)
-            Debug.LogError("ContinuousMoveProvider introuvable sous le XR Origin.");
     }
 
     private void OnEnable()
     {
-     
         if (sprintAction != null)
         {
             sprintAction.action.Enable();
@@ -117,7 +148,6 @@ public class Player : Entity
             sprintAction.action.canceled += StopSprint;
         }
 
-   
         if (moveAction != null)
         {
             moveAction.action.Enable();
@@ -126,7 +156,6 @@ public class Player : Entity
 
     private void OnDisable()
     {
-       
         if (sprintAction != null)
         {
             sprintAction.action.performed -= StartSprint;
@@ -139,7 +168,6 @@ public class Player : Entity
             moveAction.action.Disable();
         }
     }
-
 
     private void StartSprint(InputAction.CallbackContext context)
     {
@@ -161,17 +189,49 @@ public class Player : Entity
         }
     }
 
-
     public override void Move()
     {
-  
-
         if (moveAction != null && moveAction.action != null)
         {
             Vector2 inputAxis = moveAction.action.ReadValue<Vector2>();
-            //Debug.Log($"Action-based input Axis: {inputAxis}");
-
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        Debug.Log($"Player took {damage} damage! Health: {Health}");
+
+        if (damageEffect != null)
+        {
+            damageEffect.TriggerDamageEffect();
+        }
+        else
+        {
+            Debug.LogWarning("DamageEffect is not assigned in the Player script.");
+        }
+
+        if (Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void ReduceSanity(int amount)
+    {
+        Sanity -= amount;
+        Debug.Log($"Sanity reduced by {amount}. Current sanity: {Sanity}");
+
+        if (Sanity <= 0)
+        {
+            Debug.Log("Player has lost all sanity!");
+            // Ajouter ici la logique de perte de contrôle
+        }
+    }
+
+    public override void Die()
+    {
+        Debug.Log("Player is dead.");
     }
 
     public override void UpdateEntity()
@@ -181,7 +241,6 @@ public class Player : Entity
         if (Sprint && !Exhausted)
         {
             Stamina--;
-            Debug.Log($"Stamina: {Stamina}");
 
             if (Stamina <= 0)
             {
@@ -191,7 +250,6 @@ public class Player : Entity
                 {
                     moveProvider.moveSpeed = normalSpeed;
                 }
-                Debug.Log("Player est épuisé (Action-based).");
             }
         }
         else if (Stamina < 100)

@@ -19,6 +19,8 @@ public class FakeDoor : MonoBehaviour
 
     private float lastInteractionTime = 0f; // Temps de la dernière interaction
 
+    private Player player; // Référence au joueur
+
     void Start()
     {
         // Ajout automatique d'AudioSource si nécessaire
@@ -26,6 +28,12 @@ public class FakeDoor : MonoBehaviour
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1.0f; // Son 3D
         audioSource.volume = 0.8f; // Volume modifiable
+
+        player = FindObjectOfType<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player script not found in the scene.");
+        }
 
         if (screamerSound == null)
         {
@@ -39,6 +47,20 @@ public class FakeDoor : MonoBehaviour
         {
             TriggerScreamer();
             lastInteractionTime = Time.time;
+        }
+
+        // TEST: Réduire la sanité en appuyant sur la touche "S"
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (player != null)
+            {
+                player.ReduceSanity(10);
+                Debug.Log($"Sanity reduced to: {player.Sanity}");
+            }
+            else
+            {
+                Debug.LogWarning("Player reference is null in FakeDoor.");
+            }
         }
     }
 
@@ -69,6 +91,17 @@ public class FakeDoor : MonoBehaviour
             audioSource.PlayOneShot(screamerSound);
             Debug.Log("Screamer déclenché !");
             Invoke(nameof(StopScreamer), scareDuration); // Arrêter le son après la durée définie
+
+            // Réduction de la sanité du joueur de 10 points après le jumpscare
+            if (player != null)
+            {
+                player.ReduceSanity(10);
+                Debug.Log("Sanity reduced by 10 due to jumpscare.");
+            }
+            else
+            {
+                Debug.LogWarning("Player reference is null in FakeDoor.");
+            }
         }
     }
 

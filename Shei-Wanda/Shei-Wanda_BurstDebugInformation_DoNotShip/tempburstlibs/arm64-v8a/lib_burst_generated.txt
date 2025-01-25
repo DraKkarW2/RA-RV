@@ -9,7 +9,6 @@ Library: C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOu
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.54f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Library\Burst
 --output=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -127,7 +126,6 @@ Library: C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOu
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.54f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Library\Burst
 --output=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -145,7 +143,6 @@ Library: C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOu
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\Burst
---debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.54f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Library\Burst
 --output=C:\Users\milan\Desktop\unity\Projet\RA-RV\RA-RV\Shei-Wanda\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

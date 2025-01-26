@@ -23316,7 +23316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6044179279085342554, guid: 14616380afe072343a9827561954d9e6, type: 3}
       propertyPath: _onSelectAction.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: MR_Test
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6044179279085342554, guid: 14616380afe072343a9827561954d9e6, type: 3}
       propertyPath: _onSelectAction.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

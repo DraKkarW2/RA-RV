@@ -14,7 +14,7 @@ public class CloseablePC : MonoBehaviour
 
     [Header("Rotation Settings")]
     [SerializeField] private float closedAngle = 110f;
-    [SerializeField] private float rotationSpeed = 2.0f;
+    [SerializeField] private float rotationSpeed = 1.0f;
 
     private bool isClosed = false;
     private bool playerInRange = false;

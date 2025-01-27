@@ -73,7 +73,7 @@ public class FakeDoor : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
-                player.GetComponent<PlayerSanity>().ReduceSanity(10);
+                //player.GetComponent<PlayerSanity>().ReduceSanity(10);
             }
 
             Invoke(nameof(StopScreamer), scareDuration); // Arrêter le son après la durée définie

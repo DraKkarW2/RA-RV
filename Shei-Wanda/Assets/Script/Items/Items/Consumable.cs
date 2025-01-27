@@ -57,7 +57,7 @@ public class Consumable : Item
                 {
                     Debug.LogWarning("Inventory is not assigned.");
                 }
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
         else
@@ -147,4 +147,5 @@ public class Consumable : Item
             Debug.LogWarning("No door assigned to unlock with the key.");
         }
     }
+
 }

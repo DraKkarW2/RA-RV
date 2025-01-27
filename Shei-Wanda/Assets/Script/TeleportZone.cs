@@ -20,7 +20,6 @@ public class TeleportZone : MonoBehaviour
 
     [Header("XR Movement Components")]
     public ActionBasedContinuousMoveProvider MoveProvider; // XR Movement
-    public ActionBasedContinuousTurnProvider TurnProvider; // XR Rotation
 
     private GameObject xrRig;
     private bool isHidden = false;
@@ -114,8 +113,5 @@ public class TeleportZone : MonoBehaviour
     {
         if (MoveProvider != null)
             MoveProvider.enabled = enabled;
-
-        if (TurnProvider != null)
-            TurnProvider.enabled = enabled;
     }
 }
